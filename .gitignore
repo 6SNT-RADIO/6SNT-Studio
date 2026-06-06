@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+out/
+release/
+build/
+
+# Secrets — never commit
+.env
+.env.*
+*.pat
+*.token
+*secret*
+*credential*
+claude_desktop_config.json
+.claude/settings.local.json
+
+# Logs & local state
+*.log
+.DS_Store
+Thumbs.db
+
+# Observability local data
+jaeger-data/
