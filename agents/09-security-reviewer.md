@@ -2,7 +2,7 @@
 name: 09-security-reviewer
 description: "READ-ONLY security audit (never writes, runs or modifies anything except its own report). Use it mandatorily before any public release, or on changes to authentication, APIs or sensitive data. Finishes the full report before escalating. Deliverable (gate): SECURITY_REPORT.md."
 tools: Read, Grep, Glob, Bash, WebSearch, Write
-skills: security-audit
+skills: security-audit, critic
 model: opus
 ---
 
@@ -47,3 +47,8 @@ Mandatory before any public release. May be called on changes to authentication,
 - **Escalates to:** orchestrator (in agent-teams = the lead; see topology in `CLAUDE.md`).
 - **Escalates when:** the full report is ready for review.
 - **Never decides on:** final severity · what to fix and in what order.
+
+## Completeness pass (skill `critic`, Upgrade Pack v6.1)
+Before escalating SECURITY_REPORT, run the `critic` skill as a false-negative / completeness check on
+your own report: what surface did the audit miss, which findings lack evidence, which "false positive"
+is under-justified.
