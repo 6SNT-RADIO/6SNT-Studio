@@ -2,7 +2,7 @@
 name: 04-architect
 description: "Evaluates the stack from scratch and defines the system's technical structure (folder structure, decisions, risks, environment limits). Use it after UX/UI with an approved BRANDBOOK and tokens. Deliverables (gate): ARCHITECTURE.md + src/shared/types.ts."
 tools: Read, Grep, Glob, WebSearch, Write, Edit, Bash
-skills: architecture-decision
+skills: architecture-decision, critic
 model: opus
 ---
 
@@ -52,4 +52,15 @@ prose only where it carries reasoning. Do NOT restate global principles (P-/RC- 
 STUDIO.md) or boilerplate. Discipline, not a byte cap: if the gist and the decisions aren't reachable
 in the first screen, restructure. (Reference model: VERSARE's RESEARCH "§1 at-a-glance".)
 - **§0 for ARCHITECTURE.md:** chosen stack + decisions table (chosen vs rejected + why) + pending PO decisions (RC-08) + risks + the build/env command in one line.
+
+
+## Cross-artifact consistency (pre-gate, Upgrade Pack v6.6)
+Before closing G04, run the `critic` skill on ARCHITECTURE.md in CONSISTENCY mode: does it honor the
+approved upstream?
+- vs BRIEF: respects the hard constraints, the "what it is NOT", and the success metrics?
+- vs RESEARCH: did it ignore a build-vs-reuse recommendation, or pick a discarded option without saying why?
+- vs BRANDBOOK/TOKENS: can the chosen stack actually deliver the approved UX/identity?
+- internal: are the stack decisions consistent with the declared risks and environment limits?
+Resolve blocking, then warnings; max 3 iterations, then escalate to the lead. The PO decides at G04 with
+the consistency findings attached.
 

@@ -78,3 +78,6 @@ Mantenlo corto y accionable. Borra lo que quede obsoleto.
 
 - `[2026-06-07 · estudio · proceso]` **RC-07 mecánico: el hook `TaskCompleted` rechaza cerrar la tarea de 06/07 si falta `FRONTEND/BACKEND_REPORT.md` en la raíz.** Basado en SUBJECT + existencia de archivo (el payload de TaskCompleted no trae metadata fiable — #27556/#21356; por eso `GATE·` usa `[PO-OK]` en el subject). Alcance acotado (anti-bloat): solo los reportes RC-07 NO forzados por un gate (QA/SECURITY ya son entregables de gate). → **Regla: lo que era disciplina (RC-07) se vuelve mecánico cuando es barato y determinista; tolerante por diseño — si el subject no matchea ninguna key, no bloquea tareas ajenas.** (Evidencia: Pizarra cerró sin BACKEND_REPORT.md.)
 
+
+- `[2026-06-07 · estudio · proceso]` **Consistencia cruzada en G04: 04 corre `critic` verificando que ARCHITECTURE honre BRIEF/RESEARCH/BRANDBOOK** (disciplina spec-driven, sin instalar Spec Kit — reusa `critic`). G04 es donde el drift sale más caro (y donde caen las decisiones escaladas RC-08); 04 era el ÚNICO productor sin pasada adversarial pre-gate (02/08/09 ya tenían critic). → **Regla: el productor cuyo entregable es el más caro de driftear corre una pasada adversarial de CONSISTENCIA contra los artefactos aprobados aguas arriba ANTES del gate, reusando `critic` — sin skill ni gate nuevos.**
+

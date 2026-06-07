@@ -2,7 +2,7 @@
 name: 04-architect
 description: "Evalúa el stack desde cero y define la estructura técnica del sistema (estructura de carpetas, decisiones, riesgos, límites del entorno). Úsalo tras UX/UI con BRANDBOOK y tokens aprobados. Entregables (gate): ARCHITECTURE.md + src/shared/types.ts."
 tools: Read, Grep, Glob, WebSearch, Write, Edit, Bash
-skills: architecture-decision
+skills: architecture-decision, critic
 model: opus
 ---
 
@@ -53,4 +53,15 @@ comparaciones y riesgos; prosa solo donde aporta razonamiento. NO repitas princi
 las decisiones no se alcanzan en la primera pantalla, reestructura. (Modelo de referencia: el RESEARCH
 de VERSARE, "§1 de un vistazo".)
 - **§0 de ARCHITECTURE.md:** stack elegido + tabla de decisiones (elegido vs descartado + por qué) + decisiones pendientes del PO (RC-08) + riesgos + el comando de build/env en una línea.
+
+
+## Consistencia cruzada (pre-gate, Upgrade Pack v6.6)
+Antes de cerrar G04, corre el skill `critic` sobre ARCHITECTURE.md en modo CONSISTENCIA: ¿honra lo
+aprobado aguas arriba?
+- vs BRIEF: ¿respeta las restricciones duras, el "qué NO es", y las métricas de éxito?
+- vs RESEARCH: ¿ignoró una recomendación build-vs-reuse, o eligió una opción descartada sin decir por qué?
+- vs BRANDBOOK/TOKENS: ¿el stack elegido puede entregar de verdad la UX/identidad aprobada?
+- interno: ¿las decisiones de stack son consistentes con los riesgos y límites de entorno declarados?
+Resuelve blocking, luego warnings; máx 3 iteraciones, luego escala al lead. El PO decide en G04 con los
+hallazgos de consistencia adjuntos.
 

@@ -213,6 +213,11 @@ Una `Gxx` tiene `owner = PO` y **el lead NO la auto-completa** (P-05). Protocolo
 
 El lead nunca cierra una GATE sin el OK del PO; los tramos sin GATE no esperan a nadie.
 
+> **Consistencia cruzada pre-gate (v6.6):** el productor cuyo entregable es el más caro de driftear
+> corre una pasada `critic` de CONSISTENCIA contra los artefactos aprobados aguas arriba ANTES de su
+> gate — p. ej. **04** sobre `ARCHITECTURE.md` (vs BRIEF/RESEARCH/BRANDBOOK) antes de **G04**. Reusa
+> `critic`; sin skill ni gate nuevos. El PO decide en el gate con los hallazgos de consistencia adjuntos.
+
 ### 4. Enforcement — qué es mecánico y qué es norma auditada (v4.3)
 
 Tras el right-size de hooks **v4.3** (a la luz de [#54898](https://github.com/anthropics/claude-code/issues/54898)

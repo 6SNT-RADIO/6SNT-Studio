@@ -1,5 +1,5 @@
 # STUDIO.md — Reglas de operación del estudio de agentes
-## CA6SNT · Versión 1.5.4 · 2026-06-07 (Upgrade Pack v6.5 aplicado)
+## CA6SNT · Versión 1.5.5 · 2026-06-07 (Upgrade Pack v6.6 aplicado)
 
 ---
 
@@ -193,6 +193,10 @@ pasó la rúbrica**. Premisa anti-burocracia: **2–3 rúbricas de ALTO valor**,
   entregables relevantes ANTES de reportar al PO, adjunta `score`/`pass` + el juicio al `QA_REPORT.md`,
   y resuelve los `fail` antes del gate. (Opcional: el resultado puede alimentar `taskcompleted-gate`.)
 - Detalle, flujo y **gotcha de auth** (juez keyless): `<proyecto>/evals/README.md`.
+- **Consistencia cruzada pre-G04 (v6.6):** **04 ARQUITECTO** corre `critic` sobre `ARCHITECTURE.md` en
+  modo CONSISTENCIA — que honre BRIEF/RESEARCH/BRANDBOOK aprobados aguas arriba — ANTES de reportar a
+  G04. Disciplina spec-driven que reusa `critic` (sin skill ni gate nuevos); G04 es donde el drift sale
+  más caro y donde caen las decisiones escaladas (RC-08).
 
 ---
 
@@ -510,9 +514,14 @@ v1.5.4 2026-06-07 Upgrade Pack v6.5 APLICADO — RC-07 mecánico en `taskcomplet
                   metadata fiable, #27556/#21356). Acotado (QA/SECURITY ya son entregables de gate);
                   tolerante si no matchea. Verificado: node --check + dry-run (sin reporte→exit2; con
                   reporte→pasa). NO agente, NO gate.
+v1.5.5 2026-06-07 Upgrade Pack v6.6 APLICADO — consistencia cruzada en G04 (disciplina spec-driven sin
+                  Spec Kit): 04 ARQUITECTO corre `critic` sobre ARCHITECTURE.md en modo CONSISTENCIA —
+                  que honre BRIEF/RESEARCH/BRANDBOOK aprobados aguas arriba — antes de G04. Reusa
+                  `critic` (frontmatter de 04 + sección "Consistencia cruzada"; 04 anclado como
+                  invocador en el skill). G04 es donde el drift sale más caro. NO agente, NO gate, NO skill.
 ```
 
 ---
 
-*CA6SNT · Valdivia Chile · Estudio de Agentes v1.5.4 · 2026-06-07*
+*CA6SNT · Valdivia Chile · Estudio de Agentes v1.5.5 · 2026-06-07*
 *Orquestador: Claude Chat / Cowork*

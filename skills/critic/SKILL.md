@@ -29,6 +29,7 @@ Resolve blocking first, then warnings; re-run; max 3 iterations on the same issu
 
 ## Who invokes it, and on what
 - 02 RESEARCHER → on RESEARCH.md before G02: missed existing solutions, unverified sources, over-claims, build-vs-reuse that ignores an option.
+- 04 ARCHITECT → on ARCHITECTURE.md before G04 (CONSISTENCY mode): that it honors the BRIEF (constraints/metrics), the RESEARCH (build-vs-reuse), the BRANDBOOK/TOKENS (feasibility). Drift here is the most expensive.
 - 08 QA → on the build + reports before G08: makes QA explicitly adversarial ("attack the app, do not check a list"); complements qa-eyes + the anti-placeholder audit.
 - 09 SECURITY → completeness / false-negative pass on SECURITY_REPORT before escalating (security is already adversarial; the critic checks for what the audit missed).
 - LEAD → may invoke at any gate for a high-stakes deliverable (e.g., a G04 architecture fork).
