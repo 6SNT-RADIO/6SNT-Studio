@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// studio-init.mjs — Activa el estudio de agentes CA6SNT en un proyecto nuevo (v4.3).
+// studio-init.mjs — Activa el estudio de agentes CA6SNT en un proyecto nuevo, o ADOPTA uno existente con --adopt (v4.3).
 //
 // Modelo: la LIBRERÍA del estudio (agentes, hooks, skills, scripts) vive global en ~/.claude o, como
 // plugin, bajo ${CLAUDE_PLUGIN_ROOT}; la ACTIVACIÓN es DELIBERADA por-proyecto (copiar settings.json +
@@ -19,7 +19,7 @@
 //        - rúbricas de evals sembradas + grader keyless claude-cli.js en disco
 //   Idempotente: NO pisa un settings.json / CLAUDE.md existente sin --force (avisa y verifica igual).
 //
-// Uso:  node <studio>/scripts/studio-init.mjs <ruta-proyecto> [--force]
+// Uso:  node <studio>/scripts/studio-init.mjs <ruta-proyecto> [--force] [--adopt]
 //   <studio> = ${CLAUDE_PLUGIN_ROOT} (plugin) o ~/.claude (instalación clásica).
 import { existsSync, mkdirSync, copyFileSync, readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { join, resolve, dirname, parse } from 'node:path';
@@ -46,6 +46,7 @@ const HOOKS_POSIX = HOOKS_DIR.replace(/\\/g, '/');
 const GRADER_POSIX = GRADER.replace(/\\/g, '/');
 const argv = process.argv.slice(2);
 const force = argv.includes('--force');
+const adopt = argv.includes('--adopt');                 // modo brownfield (proyecto existente)
 const target = argv.find((a) => !a.startsWith('--'));
 
 const rel = (p) => p.replace(resolve(target || '.'), '.');
@@ -63,8 +64,14 @@ if (ROOT === parse(ROOT).root) {
       `(p.ej. D:\\MiProyecto), nunca '.' desde una raíz: sembrar aquí contaminaría el disco entero.`);
 }
 
+// --- modo ADOPT (brownfield): el destino debe ser un proyecto EXISTENTE; nunca pisamos su código ---
+if (adopt && !existsSync(ROOT)) {
+  die(`--adopt requiere una carpeta de proyecto EXISTENTE; "${ROOT}" no existe. ` +
+      `(Para un proyecto nuevo usa el modo greenfield, sin --adopt.)`);
+}
+
 // --- 1) copia idempotente ------------------------------------------------------------------
-console.log(`\n== studio-init → ${ROOT} ==`);
+console.log(`\n== studio-init${adopt ? ' [--adopt brownfield]' : ''} → ${ROOT} ==`);
 const plan = [
   { src: join(TPL, 'settings.json'), dst: join(ROOT, '.claude', 'settings.json'), rewriteHooks: true },
   { src: join(TPL, 'CLAUDE.md'), dst: join(ROOT, 'CLAUDE.md') },
@@ -111,9 +118,13 @@ if (existsSync(evalsSrc)) {
 // --- 1c) sembrar scaffold de SMOKE (skill smoke-test · recipe Electron actual) -------------
 // package.json es un SCAFFOLD: el Architect/Backend lo EXTIENDE (o reemplaza si el stack no es
 // Node). Conserva el script "smoke" + la devDep @playwright/test. Idempotente (no pisa sin --force).
+// En modo --adopt, si el proyecto YA tiene su package.json NO sembramos el scaffold (no pisar el del
+// proyecto); si no lo tiene, lo sembramos igual para que smoke-test tenga de dónde arrancar.
+const seedSmoke = !(adopt && existsSync(join(ROOT, 'package.json')));
+if (!seedSmoke) console.log(`  SKIP       package.json + tests/  (--adopt: el proyecto ya tiene package.json)`);
 const smokeFiles = [{ src: join(TPL, 'package.json'), dst: join(ROOT, 'package.json') }];
 for (const { src, dst } of smokeFiles) {
-  if (!existsSync(src)) continue;
+  if (!seedSmoke || !existsSync(src)) continue;
   const had = existsSync(dst);
   if (had && !force) { console.log(`  SKIP       ${rel(dst)}  (ya existe; el Architect/Backend lo EXTIENDE)`); continue; }
   copyFileSync(src, dst);
@@ -121,13 +132,25 @@ for (const { src, dst } of smokeFiles) {
 }
 const testsSrc = join(TPL, 'tests');
 const testsDst = join(ROOT, 'tests');
-if (existsSync(testsSrc)) {
+if (seedSmoke && existsSync(testsSrc)) {
   mkdirSync(testsDst, { recursive: true });
   for (const f of readdirSync(testsSrc)) {
     const hadT = existsSync(join(testsDst, f));
     if (hadT && !force) { console.log(`  SKIP       ${rel(join(testsDst, f))}  (ya existe)`); continue; }
     copyFileSync(join(testsSrc, f), join(testsDst, f));
     console.log(`  ${hadT ? 'OVERWRITE ' : 'COPY      '} ${rel(join(testsDst, f))}`);
+  }
+}
+
+// --- 1d) marcador brownfield (modo --adopt): señala que este build fue ADOPTADO ----------------
+if (adopt) {
+  const adoptedPath = join(ROOT, '.claude', 'ADOPTED');
+  mkdirSync(dirname(adoptedPath), { recursive: true });
+  if (existsSync(adoptedPath)) {
+    console.log(`  SKIP       ${rel(adoptedPath)}  (ya marcado brownfield)`);
+  } else {
+    writeFileSync(adoptedPath, `adopted ${new Date().toISOString()}\n`);
+    console.log(`  ADOPT      ${rel(adoptedPath)}  (marcador brownfield)`);
   }
 }
 

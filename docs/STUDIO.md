@@ -1,5 +1,5 @@
 # STUDIO.md — Reglas de operación del estudio de agentes
-## CA6SNT · Versión 1.5.5 · 2026-06-07 (Upgrade Pack v6.6 aplicado)
+## CA6SNT · Versión 1.6.0 · 2026-06-07 (Upgrade Pack v7 aplicado)
 
 ---
 
@@ -111,6 +111,32 @@ alternativa: `cd <ruta> && claude` en sesión fresca, no `--resume`; si `claude`
 completa o `$env:PATH += ";$env:APPDATA\\npm"`.)*
 
 Cowork tiene su gemelo intake-first (prompt en `agents/STARTERS.md` §C). **Solo `.claude`.**
+
+---
+
+## Brownfield — la rampa `/adopt`
+
+Segundo punto de ENTRADA al estudio: adoptar un proyecto **EN CURSO** y continuarlo desde su estado
+**REAL**. No es un 2º pipeline — es **una rampa de 1 gate (G-ADOPT)** que reengancha al grafo normal
+en el gate de **madurez real** del proyecto.
+
+- **Regla de oro:** NO reconstruir todo el spec de una (produce specs plausibles-falsos).
+  Reconstrucción **incremental + grounded** (anclada al código real vía `adopt-ground`/Repomix, no a
+  memoria) y revisada por el PO **artefacto-por-artefacto**. Forma Kiro: *Actual / Esperado /
+  Sin-cambios*; inferencias marcadas `[TO VERIFY]` (drift-protocol). Código existente **read-only**
+  hasta G-ADOPT (baseline commit + checkpoint primero).
+- **Seguridad primero:** `adopt-ground` corre el secret-scan ANTES de leer hondo o generar doc; si
+  aparecen secretos → STOP, cuarentena y escalar al PO (P-02). Nunca imprimir el valor del secreto.
+- **Flujo (TaskGraph liviano):** `T-ground (adopt-ground) → T-smoke (smoke-test) → T04 ARCH ∥ T05
+  DATA → T01 BRIEF → T10 DOCS(draft) → GATE·ADOPT(PO) → reenganche al grafo normal`.
+- **G-ADOPT** reusa el patrón `approved_by:"PO"` / `[PO-OK]` del `taskcompleted-gate.mjs` (sin hook ni
+  enforcement nuevos). Tras el gate, el lead crea el pipeline normal A PARTIR del gate de madurez real
+  (no recrea G01–G03 si ya existen).
+- **Anti-bloat:** solo `adopt-ground` (skill) + `/adopt` (comando) + G-ADOPT (gate) + modo `--adopt`
+  de studio-init son nuevos; todo lo demás REUSA `security-audit`, `smoke-test`, `diagrams-gate`,
+  `drift-protocol`, `critic`, `data-integrity`, `intake-scale-gating`.
+
+> Definición: `commands/adopt.md` + skill `adopt-ground`.
 
 ---
 
@@ -519,9 +545,17 @@ v1.5.5 2026-06-07 Upgrade Pack v6.6 APLICADO — consistencia cruzada en G04 (di
                   que honre BRIEF/RESEARCH/BRANDBOOK aprobados aguas arriba — antes de G04. Reusa
                   `critic` (frontmatter de 04 + sección "Consistencia cruzada"; 04 anclado como
                   invocador en el skill). G04 es donde el drift sale más caro. NO agente, NO gate, NO skill.
+v1.6.0 2026-06-07 Upgrade Pack v7 APLICADO — Brownfield Adoption (rampa `/adopt`): 2º punto de
+                  entrada para adoptar un proyecto en curso y continuarlo desde su estado real. UN
+                  gate nuevo (G-ADOPT, rampa; reusa `approved_by:"PO"`), UN skill (`adopt-ground`:
+                  grounding Repomix + secret-scan PRIMERO), UN comando (`/adopt`), modo `--adopt` de
+                  studio-init (no-clobber del package.json del proyecto + marcador `.claude/ADOPTED`).
+                  Reconstrucción incremental + grounded + PO artefacto-a-artefacto; `[TO VERIFY]`;
+                  read-only hasta G-ADOPT; reenganche al grafo en el gate de madurez real. Reusa
+                  security/smoke/diagrams/drift/critic/data-integrity. NO agente nuevo.
 ```
 
 ---
 
-*CA6SNT · Valdivia Chile · Estudio de Agentes v1.5.5 · 2026-06-07*
+*CA6SNT · Valdivia Chile · Estudio de Agentes v1.6.0 · 2026-06-07*
 *Orquestador: Claude Chat / Cowork*

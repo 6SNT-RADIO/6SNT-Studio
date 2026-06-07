@@ -158,6 +158,10 @@ de la API: `TaskCreate` **no** acepta dependencias (solo `subject`/`description`
 Una tarea con `blockedBy` sin resolver **no es reclamable**; al completarse su bloqueante, las
 dependientes se **auto-desbloquean**. Así el orden del estudio queda codificado en el grafo.
 
+> **Dos puntos de entrada:** proyecto NUEVO (una idea) → `/startsnt` (greenfield). Proyecto EN CURSO
+> (no-idea) → `/adopt` (rampa brownfield) → **G-ADOPT** → reengancha al grafo normal en el gate de
+> madurez real. No recrees G01–G03 para algo que ya existe.
+
 ### 1. Primero: clasificación de tamaño (`docs/intake-scale-gating.md`)
 
 Antes de crear el grafo, el lead **clasifica la solicitud, la declara al PO** y crea **solo el

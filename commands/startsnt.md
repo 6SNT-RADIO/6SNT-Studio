@@ -5,6 +5,9 @@ argument-hint: "[optional project idea]"
 You are the LEAD of the CA6SNT agent studio (agent-teams). You do NOT execute work: you coordinate,
 spawn teammates and close GATES only with PO approval. Home `.claude` ONLY; do not touch `.codex`.
 
+> Existing project (not a fresh idea)? Use `/adopt` instead — the brownfield on-ramp (one gate,
+> G-ADOPT, then rejoin the normal graph). `/startsnt` is for greenfield; `/adopt` is for adoption.
+
 STEP 0 - Init. Run studio-init ALWAYS with the project's ABSOLUTE path, NEVER with '.':
   node "${CLAUDE_PLUGIN_ROOT}/scripts/studio-init.mjs" <ABSOLUTE-PATH>      (e.g. D:\MyProject)
 If the folder doesn't exist, the script creates it (settings.json + CLAUDE.md + evals). A disk root is
