@@ -1,5 +1,5 @@
 # STUDIO.md — Reglas de operación del estudio de agentes
-## CA6SNT · Versión 1.5.1 · 2026-06-07 (Upgrade Pack v6.2 aplicado)
+## CA6SNT · Versión 1.5.2 · 2026-06-07 (Upgrade Pack v6.3 aplicado)
 
 ---
 
@@ -53,13 +53,13 @@ AGENTES GENÉRICOS DEL ESTUDIO
 
 SKILLS GENÉRICOS DEL ESTUDIO
  <hogar>\agents\skills\
- brand-evaluation.md · brand-evaluation-rubric.md (NUEVO v1.1)
+ brand-evaluation-rubric.md (NUEVO v1.1)
  research-methodology.md · architecture-decision.md · data-integrity.md
  qa-visual-criteria.md · qa-eyes.md (NUEVO v1.1)
  security-audit.md · project-cleanup.md · technical-documentation.md
  agent-authoring.md (NUEVO v1.2)
- asset-sourcing.md · env-reproducible.md · diagrams-gate.md · security-gate.md ·
- orchestrator-bridge.md · drift-protocol.md · qa-verification.md (NUEVO v1.3)
+ asset-sourcing.md · env-reproducible.md · diagrams-gate.md ·
+ orchestrator-bridge.md · drift-protocol.md (NUEVO v1.3) · critic.md (v6.1)
 
 MEMORIA Y PROCESO DEL ESTUDIO (NUEVO v1.1)
  <hogar>\agents\LEARNINGS.md           (memoria viva; todo agente la lee al arrancar)
@@ -229,9 +229,9 @@ Ante la duda, sube un nivel. Omitir un gate NO exime de los principios P-01..P-1
 07 BACKEND     → lógica/datos/APIs. En paralelo con Frontend.
 08 QA          → gate de calidad. Usa qa-eyes (conduce la app real) + auditoría
    anti-placeholder; prioriza testing por riesgo (ver qa-eyes). Gate: 0 blocking. (v1.1.
-   Usa qa-verification: Jenny + Karen + task-completion-validator — v1.3.)
-09 SECURITY    → gate de seguridad. Gate: SECURITY_REPORT.md. (Usa security-gate:
-   SecOpsAgentKit + reviewdog baseline — v1.3.)
+   Usa qa-eyes (Hecho=hecho: Jenny + Karen + task-completion-validator — v1.3, plegado en qa-eyes en v6.3).)
+09 SECURITY    → gate de seguridad. Gate: SECURITY_REPORT.md. (Herramientas en security-audit:
+   SecOpsAgentKit + reviewdog baseline — v1.3, plegado en security-audit en v6.3.)
 10 TECH WRITER → cierre/docs. Documenta la realidad. Registra mejoras en STUDIO.md.
 ```
 
@@ -324,12 +324,12 @@ ROL 04 (Architect) — skills env-reproducible + diagrams-gate
 ROL 05 (Data Modeler) — skill diagrams-gate (diagrama ER)
  · c4-model-skill / oh-my-mermaid (mismos repos de arriba).
 
-ROL 08 (QA) — skill qa-verification
+ROL 08 (QA) — skill qa-eyes (fusión de qa-verification, v6.3)
  · Jenny / Karen /       https://github.com/darcyegb/ClaudeCodeAgents
    task-completion-validator → copiados a <hogar>\agents\ (adaptados al formato TOML del estudio).
  · reviewdog             https://github.com/reviewdog/reviewdog → baseline: falla solo en hallazgos nuevos.
 
-ROL 09 (Security) — skill security-gate
+ROL 09 (Security) — skill security-audit (fusión de security-gate, v6.3)
  · SecOpsAgentKit        https://github.com/AgentSecOps/SecOpsAgentKit
                          → orquesta Gitleaks/Semgrep/Bandit/Trivy/Grype/Checkov/DefectDojo.
  · reviewdog (baseline)  https://github.com/reviewdog/reviewdog → solo hallazgos NUEVOS sobre el diff.
@@ -494,9 +494,14 @@ v1.5.1 2026-06-07 Upgrade Pack v6.2 APLICADO — jurado LLM-as-judge keyless cos
                   (G03, subjetiva); las objetivas siguen con 1 juez y el jurado entra por la regla
                   "borde → jurado" (score a ±0.1 del umbral). Cost-aware: 3× solo donde importa. + sección
                   en 08-qa, evals/README y LEARNINGS.
+v1.5.2 2026-06-07 Upgrade Pack v6.3 APLICADO — poda de skills (anti-bloat): fusión de 3 pares solapados
+                  en su keeper PRESERVANDO contenido (RC-06: mover, no perder) — brand-evaluation →
+                  brand-evaluation-rubric, qa-verification → qa-eyes, security-gate → security-audit.
+                  Catálogo 22→19 (repo). Refs reapuntadas (03 frontmatter, punteros ROL, índice de
+                  skills); cero referencias colgantes. NO agente, NO gate.
 ```
 
 ---
 
-*CA6SNT · Valdivia Chile · Estudio de Agentes v1.5.1 · 2026-06-07*
+*CA6SNT · Valdivia Chile · Estudio de Agentes v1.5.2 · 2026-06-07*
 *Orquestador: Claude Chat / Cowork*

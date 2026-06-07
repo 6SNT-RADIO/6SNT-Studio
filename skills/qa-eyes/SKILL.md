@@ -52,3 +52,17 @@ For each finding: is it **declared** as deferred (backlog) or **sold as real**? 
 
 ## Prioritize by risk (not exhaustive coverage)
 Test the highest impact and failure-probability first: unrecoverable data, money, authentication, and the BRIEF's critical flow. Don't chase testing everything. Declare in the report what was prioritized and what was skipped as low-risk (with a one-line why).
+
+---
+
+## Done = done (impl-vs-spec, reality-check, end-to-end) (merged from `qa-verification`, v6.3)
+
+> Folded in from the `qa-verification` skill without losing content.
+
+Before approving the QA gate, verify that "done" means done:
+- **Jenny (impl-vs-spec):** find gaps/inconsistencies between what's implemented and what's specified.
+- **Karen (reality-check):** REAL vs claimed completeness; cut stubs/placeholders.
+- **task-completion-validator (end-to-end):** it works end-to-end, not just compiles.
+
+Combine with `qa-eyes` (real app) + the anti-placeholder audit (P-11) + a reviewdog baseline.
+

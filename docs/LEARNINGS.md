@@ -69,3 +69,6 @@ Mantenlo corto y accionable. Borra lo que quede obsoleto.
 
 - `[2026-06-07 · estudio · proceso]` **Jurado solo donde es subjetivo o al borde.** Un jurado de 3 tiers de Claude (opus/sonnet/haiku, keyless vía `claude-cli.js`) baja el sesgo de un solo juez en lo subjetivo (marca/G03); en lo objetivo, 1 juez basta y el jurado entra solo en puntajes-borde (±0.1 del umbral). → **Regla: jurado SOLO donde es subjetivo o al borde — cost-aware (3× solo donde importa, no en todo); sin API key ni modelos de terceros (mediana + mayoría, P-06 descarta jueces caídos).** (Evidencia: research 2026 — LLM-as-judge útil acotado a gates subjetivos.)
 
+
+- `[2026-06-07 · estudio · anti-bloat]` **Poda de skills = fusionar solapadas en su keeper PRESERVANDO contenido.** RC-06: mover las secciones sustantivas al keeper (no reescribir), verificar que no quede nada único sin migrar, y RECIÉN ENTONCES borrar el origen. No forzar un número: solo lo realmente redundante. → **Regla: el catálogo de skills se PODA fusionando duplicados en su keeper (cero pérdida, cero referencias colgantes), no acumulando.** (Evidencia: v6.3 fusionó brand-evaluation→brand-evaluation-rubric, qa-verification→qa-eyes, security-gate→security-audit; 22→19.)
+

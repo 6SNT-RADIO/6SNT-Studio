@@ -2,7 +2,7 @@
 name: 03-ux-ui
 description: "Defines the visual identity and the use experience, and turns it into tokens the Frontend can consume. Use it after the Researcher with an approved RESEARCH.md, when the project touches UI. Deliverables (gate): BRANDBOOK.md + TOKENS.css."
 tools: Read, Grep, Glob, WebSearch, Write, Edit, Bash
-skills: brand-evaluation, visualizer
+skills: brand-evaluation-rubric, visualizer
 model: sonnet
 ---
 
@@ -37,7 +37,7 @@ After the Researcher with an approved RESEARCH.md. Consumes BRIEF.md and RESEARC
 - **TOKENS.css** — Design tokens derived from the brandbook, consumable by the Frontend. _(Audience: ai_executor)_
 
 ## Declared skills & tools
-- **Required:** frontend-design, brand-evaluation, visualizer, web-search, markdown-writer
+- **Required:** frontend-design, brand-evaluation-rubric, visualizer, web-search, markdown-writer
 - **Optional:** —
 - **Tools:** Visualizer to render proposals in chat, web search for references and inspiration, MD document production
 

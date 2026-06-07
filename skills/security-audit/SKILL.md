@@ -43,3 +43,14 @@ FALSE POSITIVE: always document and justify, never ignore silently.
 × Escalating before finishing the report
 × Reporting without exact evidence
 × Not checking .gitignore
+
+---
+
+## Audit tooling (SecOpsAgentKit, reviewdog baseline, Electron isolation) (merged from `security-gate`, v6.3)
+
+> Folded in from the `security-gate` skill without losing content.
+
+- **SecOpsAgentKit** (github.com/AgentSecOps/SecOpsAgentKit): orchestrates Gitleaks (secrets), Semgrep/Bandit (SAST), Trivy/Grype (SCA), Checkov (IaC), DefectDojo (findings). The LLM triages; low cost.
+- **reviewdog** (github.com/reviewdog/reviewdog) with a baseline: posts only on the diff and freezes what's already triaged → fails only on NEW findings = learns from false positives.
+- **Deep:** `llm-sast-scanner` (taint + a Judge anti-FP step). **Electron:** validate isolation (contextIsolation/sandbox/CSP).
+

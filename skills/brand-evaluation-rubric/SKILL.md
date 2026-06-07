@@ -47,3 +47,36 @@ Top improvements: 1) ... (severity) 2) ...
 - For Agent 03: if AI-Slop < A- or Design < B, **iterate before** closing the gate.
 - For Agent 08: run the rubric **on the real app** (with `qa-eyes`), not on the mockup.
 - Zero hardcoded hex/fonts outside the tokens = a requirement, not an opinion.
+
+---
+
+## Rejection/approval criteria + workflow (merged from `brand-evaluation`, v6.3)
+
+> Folded in from the `brand-evaluation` skill (Agent 03) without losing content. Complements the scoring rubric with binary reject/approve criteria + Agent 03's workflow.
+
+**Reject internally and reformulate if it has one or more:**
+- Palette dominated by corporate blue + white + grey.
+- Generic sans-serif typeface with no defined personality.
+- Dashboard layout (left sidebar + header + cards) as the main structure with no specific justification.
+- Landing page with a big hero + three feature columns.
+- Trendy gradients unrelated to the product's personality.
+- Generic line iconography with no system of its own.
+- Anything that could serve any other product without changing a thing.
+
+**Approve if:**
+- The palette has an explainable narrative rationale.
+- The typography has hierarchy with purpose.
+- The layout responds to how the user uses the product.
+- Someone can tell what kind of product it is without reading the name.
+- The proposal could not be applied to another product without modifying it.
+
+**Workflow (Agent 03):**
+1. Gather references from the PO before proposing anything.
+2. Generate at least 3 distinct visual directions.
+3. Internal evaluation against the rejection criteria.
+4. Present to the PO with enough context to decide.
+5. Iterate until explicit approval.
+6. Convert the approved brandbook into CSS tokens.
+
+**Common mistakes:** proposing before gathering references · presenting variations of the same concept as distinct options · moving to tokens without explicit approval · defining tokens by size instead of by use.
+
