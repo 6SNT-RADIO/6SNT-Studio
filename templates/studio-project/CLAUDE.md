@@ -1,8 +1,8 @@
 # CLAUDE.md — Estudio de Agentes CA6SNT
 
 > Contexto compartido que cargan **todos los teammates** del estudio en Claude Code (agent-teams).
-> Fuente canónica: `agents/STUDIO.md` (CA6SNT · v1.3 · 2026-06-05). Este archivo es el contrato
-> operativo mínimo del equipo; el detalle completo vive en `STUDIO.md`, en `agents/LEARNINGS.md`
+> Fuente canónica: `docs/STUDIO.md` (CA6SNT · v1.3 · 2026-06-05). Este archivo es el contrato
+> operativo mínimo del equipo; el detalle completo vive en `STUDIO.md`, en `docs/LEARNINGS.md`
 > y en la definición de cada agente (`agents/NN-*.md`).
 
 ---
@@ -37,7 +37,7 @@ proyectos pasan, el estudio permanece.
 
 **Pipeline por defecto (trabajo COMPLEJO):**
 `01 STRATEGIST → 02 RESEARCHER → 03 UX/UI → 04 ARCHITECT → 05 DATA MODELER → 06 FRONTEND ∥ 07 BACKEND → 08 QA → 09 SECURITY → 10 TECH WRITER`
-El gating es proporcional al tamaño (ver `agents/intake-scale-gating.md`): TRIVIAL y ESTÁNDAR
+El gating es proporcional al tamaño (ver `docs/intake-scale-gating.md`): TRIVIAL y ESTÁNDAR
 activan solo el subset necesario. Omitir un gate **no** exime de los principios P-01..P-11. **Default al tamaño MÁS PEQUEÑO que encaje; agregar gates aumenta el fracaso (anti-bloat v5.4 · ver STUDIO.md).**
 
 **Tier de modelo por agente** (3-tier, coste-consciente; el lead puede subir de tier por tarea puntual):
@@ -49,7 +49,7 @@ activan solo el subset necesario. Omitir un gate **no** exime de los principios 
 
 ## Principios globales del estudio (P-01..P-11)
 
-*(texto canónico — `agents/STUDIO.md`)*
+*(texto canónico — `docs/STUDIO.md`)*
 
 - **P-01**  Toda app se empaqueta y se ve como app nativa. Nunca localhost en el browser.
 - **P-02**  Construir como si el repo fuera público. Nunca credenciales/datos sensibles en código.
@@ -67,7 +67,7 @@ activan solo el subset necesario. Omitir un gate **no** exime de los principios 
 
 ## Reglas para Claude Code al ejecutar un agente (RC-01..RC-08)
 
-*(texto canónico — `agents/STUDIO.md`)*
+*(texto canónico — `docs/STUDIO.md`)*
 
 - **RC-01**  Leer el TOML del agente y LEARNINGS.md antes de empezar. (v1.1)
 - **RC-02**  Leer los documentos del proyecto en local (Drive es respaldo).
@@ -158,7 +158,7 @@ de la API: `TaskCreate` **no** acepta dependencias (solo `subject`/`description`
 Una tarea con `blockedBy` sin resolver **no es reclamable**; al completarse su bloqueante, las
 dependientes se **auto-desbloquean**. Así el orden del estudio queda codificado en el grafo.
 
-### 1. Primero: clasificación de tamaño (`agents/intake-scale-gating.md`)
+### 1. Primero: clasificación de tamaño (`docs/intake-scale-gating.md`)
 
 Antes de crear el grafo, el lead **clasifica la solicitud, la declara al PO** y crea **solo el
 subset** que corresponde. Ante la duda, sube un nivel; omitir un gate **no** exime de P-01..P-11.
@@ -261,4 +261,4 @@ identidad del subagente llamante** — su stdin no trae `agent_type`), el enforc
 ---
 
 *CA6SNT · Valdivia, Chile · Estudio de Agentes v1.3 · Contrato de equipo para agent-teams (.claude).*
-*Plantilla `studio-project` (v4.3) — instánciala con `node ~/.claude/scripts/studio-init.mjs <ruta>`.*
+*Plantilla `studio-project` (v4.3) — instánciala con `node ~/.claude/scripts/studio-init.mjs <ruta>` (o el skill `setup` del plugin).*
