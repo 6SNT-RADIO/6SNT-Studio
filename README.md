@@ -2,6 +2,14 @@
 
 **A gated, 10-agent software studio for [Claude Code](https://docs.claude.com/en/docs/claude-code) (agent-teams).**
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+![Built with Claude Code](https://img.shields.io/badge/built%20with-Claude%20Code-d97757)
+![Mode: agent-teams](https://img.shields.io/badge/mode-agent--teams-8957e5)
+![Agents: 10](https://img.shields.io/badge/agents-10-2ea44f)
+![Human gates: 6](https://img.shields.io/badge/human%20gates-6-fe7d37)
+![Status: method validated](https://img.shields.io/badge/status-method%20validated-success)
+![Privacy: local-first](https://img.shields.io/badge/privacy-local--first-brightgreen)
+
 Ten specialized AI agents build software in a disciplined pipeline. Each agent owns exactly **one** deliverable, and **nothing advances without explicit human approval** at its gate. The result is AI-built software with the predictability of a real engineering process — not a one-shot prompt.
 
 > The studio is **not a project** — it is the infrastructure that serves every project.
