@@ -11,6 +11,7 @@
 //      (reescribe las rutas de hooks ~/.claude/hooks/ -> al dir REAL del estudio, porque '~' no se
 //       expande en los command de hooks de settings.json)
 //      + siembra las rúbricas de evals (pre-gate LLM-juez)  ->  <proyecto>/evals/*.rubric.yaml
+//        (y reescribe la ruta del grader keyless al dir REAL, mismo motivo: '~' no se expande)
 //   2) VERIFICA la activación e imprime OK/FALTA por ítem:
 //        - flag CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS
 //        - cada hook cableado apunta a un .mjs REAL en disco
@@ -42,6 +43,7 @@ const TPL = underStudio('templates', 'studio-project');           // plantilla d
 const HOOKS_DIR = underStudio('hooks');                           // .mjs de hooks (rewrite settings.json)
 const GRADER = underStudio('evals', 'providers', 'claude-cli.js'); // juez keyless de evals
 const HOOKS_POSIX = HOOKS_DIR.replace(/\\/g, '/');
+const GRADER_POSIX = GRADER.replace(/\\/g, '/');
 const argv = process.argv.slice(2);
 const force = argv.includes('--force');
 const target = argv.find((a) => !a.startsWith('--'));
@@ -88,6 +90,7 @@ for (const { src, dst, rewriteHooks } of plan) {
 // --- 1b) sembrar rúbricas de evals (pre-gate LLM-juez) -------------------------------------
 const evalsSrc = join(TPL, 'evals');
 const evalsDst = join(ROOT, 'evals');
+const graderRe = /~\/\.claude\/evals\/providers\/claude-cli\.js/g;
 if (existsSync(evalsSrc)) {
   mkdirSync(evalsDst, { recursive: true });
   for (const f of readdirSync(evalsSrc)) {
@@ -95,7 +98,12 @@ if (existsSync(evalsSrc)) {
     const dst = join(evalsDst, f);
     const had = existsSync(dst);
     if (had && !force) { console.log(`  SKIP       ${rel(dst)}  (ya existe)`); continue; }
-    copyFileSync(src, dst);
+    if (/\.ya?ml$/.test(f)) {
+      // '~' no se expande en file:// de promptfoo: apunta el grader keyless al dir REAL del estudio.
+      writeFileSync(dst, readFileSync(src, 'utf8').replace(graderRe, GRADER_POSIX));
+    } else {
+      copyFileSync(src, dst);
+    }
     console.log(`  ${had ? 'OVERWRITE ' : 'COPY      '} ${rel(dst)}`);
   }
 }
