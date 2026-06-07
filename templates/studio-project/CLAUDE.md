@@ -227,7 +227,9 @@ identidad del subagente llamante** — su stdin no trae `agent_type`), el enforc
   `subject` empiece por `GATE·` si `metadata.approved_by` ≠ `"PO"`. Esto vuelve **mecánica** la regla
   P-05. El lead fija `TaskUpdate {taskId:"<Gxx>", metadata:{approved_by:"PO"}}` SOLO tras el OK
   explícito del PO. Para tareas de código/doc conserva su validación ligera (typecheck/test/build o
-  existencia del entregable).
+  existencia del entregable). **(+ v6.5)** También rechaza cerrar la tarea de **06/07** si falta su
+  `FRONTEND_REPORT.md` / `BACKEND_REPORT.md` en la raíz del proyecto (RC-07 mecánico, basado en el
+  `subject` de la tarea + existencia de archivo; tolerante si no matchea).
 
 **NORMA del estudio + auditoría POST-HOC (NO mecánico):**
 - El **mapa de propiedad por-agente** ya **no se impone mecánicamente**: con #54898 el hook no puede

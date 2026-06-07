@@ -75,3 +75,6 @@ Mantenlo corto y accionable. Borra lo que quede obsoleto.
 
 - `[2026-06-07 · estudio · proceso]` **Docs de planificación abren con §0 ejecutivo de 1 pantalla; cuerpo escaneable (tablas).** P-09 como disciplina ESTRUCTURAL, no tope de bytes (un tope sería anti-razonamiento). → **Regla: RESEARCH/ARCHITECTURE/DATAMODEL abren con §0 (veredicto + decisiones-PO + riesgos) aprobable de un vistazo; el detalle va abajo; el cuerpo usa tablas/bullets.** (Evidencia: ARCH ~47k / DATAMODEL ~52k / RESEARCH ~44k en 3 builds; el PO debe poder aprobar el gate desde §0.)
 
+
+- `[2026-06-07 · estudio · proceso]` **RC-07 mecánico: el hook `TaskCompleted` rechaza cerrar la tarea de 06/07 si falta `FRONTEND/BACKEND_REPORT.md` en la raíz.** Basado en SUBJECT + existencia de archivo (el payload de TaskCompleted no trae metadata fiable — #27556/#21356; por eso `GATE·` usa `[PO-OK]` en el subject). Alcance acotado (anti-bloat): solo los reportes RC-07 NO forzados por un gate (QA/SECURITY ya son entregables de gate). → **Regla: lo que era disciplina (RC-07) se vuelve mecánico cuando es barato y determinista; tolerante por diseño — si el subject no matchea ninguna key, no bloquea tareas ajenas.** (Evidencia: Pizarra cerró sin BACKEND_REPORT.md.)
+

@@ -1,5 +1,5 @@
 # STUDIO.md — Reglas de operación del estudio de agentes
-## CA6SNT · Versión 1.5.3 · 2026-06-07 (Upgrade Pack v6.4 aplicado)
+## CA6SNT · Versión 1.5.4 · 2026-06-07 (Upgrade Pack v6.5 aplicado)
 
 ---
 
@@ -504,9 +504,15 @@ v1.5.3 2026-06-07 Upgrade Pack v6.4 APLICADO — lean-mode de docs (P-09) en 02/
                   tablas de decisión + decisiones-PO + riesgos) aprobable de un vistazo; cuerpo escaneable.
                   Disciplina ESTRUCTURAL, no tope de bytes. + bullet en `critic` (caza decisiones
                   enterradas / P-09). NO agente, NO gate, NO hook.
+v1.5.4 2026-06-07 Upgrade Pack v6.5 APLICADO — RC-07 mecánico en `taskcompleted-gate.mjs`: al cerrar la
+                  tarea de 06/07, el hook rechaza (exit 2) si falta su `FRONTEND/BACKEND_REPORT.md` en la
+                  raíz. Basado en SUBJECT + existencia de archivo (el payload TaskCompleted no trae
+                  metadata fiable, #27556/#21356). Acotado (QA/SECURITY ya son entregables de gate);
+                  tolerante si no matchea. Verificado: node --check + dry-run (sin reporte→exit2; con
+                  reporte→pasa). NO agente, NO gate.
 ```
 
 ---
 
-*CA6SNT · Valdivia Chile · Estudio de Agentes v1.5.3 · 2026-06-07*
+*CA6SNT · Valdivia Chile · Estudio de Agentes v1.5.4 · 2026-06-07*
 *Orquestador: Claude Chat / Cowork*

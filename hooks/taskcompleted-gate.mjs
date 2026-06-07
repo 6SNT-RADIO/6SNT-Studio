@@ -145,6 +145,20 @@ if (isGate) {
   process.exit(0); // GATE aprobada por PO: el checkpoint humano ES el gate (sin validación de código/doc).
 }
 
+// ── RC-07 mecánico (Upgrade Pack v6.5): la tarea de 06/07 no cierra sin su reporte RC-07 en la raíz ──
+// El payload TaskCompleted NO trae metadata fiable (#27556/#21356); este check se basa en el SUBJECT de
+// la tarea + existencia del archivo en el cwd del proyecto. Tolerante: si el subject no matchea ninguna
+// key, no bloquea (no afecta tareas ajenas). Acotado a los reportes RC-07 que NO fuerza un gate
+// (QA_REPORT/SECURITY_REPORT ya son entregables de gate y no se duplican).
+const RC07_REPORTS = { frontend: 'FRONTEND_REPORT.md', backend: 'BACKEND_REPORT.md' };
+const subjRC07 = subj.toLowerCase();
+for (const [key, file] of Object.entries(RC07_REPORTS)) {
+  const hit = subjRC07.includes(key) || subjRC07.includes('t0' + (key === 'frontend' ? '6' : '7'));
+  if (hit && !existsSync(join(cwd, file))) {
+    fail(`RC-07: falta ${file} para la etapa ${key}. Entrega el reporte RC-07 en la raíz del proyecto antes de cerrar la tarea (Txx de 06/07).`);
+  }
+}
+
 // classify code vs doc
 const codeAgent = /\b0?[4567]\b|architect|frontend|backend|data.?model|\bqa\b/.test(agentType.toLowerCase());
 const codeWords = /(test|typecheck|build|compile|lint|src\/|\.tsx?|\.jsx?|api|endpoint|component|render|serial|preload|backend|frontend)/;
