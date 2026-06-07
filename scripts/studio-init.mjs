@@ -8,6 +8,8 @@
 // Este script:
 //   1) copia la plantilla right-sized   <studio>/templates/studio-project/{settings.json,CLAUDE.md}
 //      a   <proyecto>/.claude/settings.json   y   <proyecto>/CLAUDE.md
+//      (reescribe las rutas de hooks ~/.claude/hooks/ -> al dir REAL del estudio, porque '~' no se
+//       expande en los command de hooks de settings.json)
 //      + siembra las rúbricas de evals (pre-gate LLM-juez)  ->  <proyecto>/evals/*.rubric.yaml
 //   2) VERIFICA la activación e imprime OK/FALTA por ítem:
 //        - flag CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS
@@ -18,20 +20,28 @@
 //
 // Uso:  node <studio>/scripts/studio-init.mjs <ruta-proyecto> [--force]
 //   <studio> = ${CLAUDE_PLUGIN_ROOT} (plugin) o ~/.claude (instalación clásica).
-import { existsSync, mkdirSync, copyFileSync, readFileSync, readdirSync } from 'node:fs';
+import { existsSync, mkdirSync, copyFileSync, readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { join, resolve, dirname, parse } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import os from 'node:os';
 
 const HOME = os.homedir();
-// Plantilla: en instalación de plugin vive junto al script (CLAUDE_PLUGIN_ROOT o relativo a este
-// archivo); en instalación clásica, en ~/.claude/templates. Se usa la primera ruta que exista.
 const SELF_DIR = dirname(fileURLToPath(import.meta.url));
-const TPL = [
-  process.env.CLAUDE_PLUGIN_ROOT && join(process.env.CLAUDE_PLUGIN_ROOT, 'templates', 'studio-project'),
-  join(SELF_DIR, '..', 'templates', 'studio-project'),
-  join(HOME, '.claude', 'templates', 'studio-project'),
-].filter(Boolean).find((p) => existsSync(p)) || join(HOME, '.claude', 'templates', 'studio-project');
+// Raíces candidatas del estudio (donde viven templates/, hooks/, evals/): plugin (CLAUDE_PLUGIN_ROOT)
+// → relativo al script → ~/.claude. underStudio() devuelve la primera ruta que exista.
+const STUDIO_ROOTS = [
+  process.env.CLAUDE_PLUGIN_ROOT || null,
+  resolve(SELF_DIR, '..'),
+  join(HOME, '.claude'),
+].filter(Boolean);
+const underStudio = (...parts) => {
+  for (const root of STUDIO_ROOTS) { const p = join(root, ...parts); if (existsSync(p)) return p; }
+  return join(HOME, '.claude', ...parts);
+};
+const TPL = underStudio('templates', 'studio-project');           // plantilla del proyecto
+const HOOKS_DIR = underStudio('hooks');                           // .mjs de hooks (rewrite settings.json)
+const GRADER = underStudio('evals', 'providers', 'claude-cli.js'); // juez keyless de evals
+const HOOKS_POSIX = HOOKS_DIR.replace(/\\/g, '/');
 const argv = process.argv.slice(2);
 const force = argv.includes('--force');
 const target = argv.find((a) => !a.startsWith('--'));
@@ -54,15 +64,21 @@ if (ROOT === parse(ROOT).root) {
 // --- 1) copia idempotente ------------------------------------------------------------------
 console.log(`\n== studio-init → ${ROOT} ==`);
 const plan = [
-  { src: join(TPL, 'settings.json'), dst: join(ROOT, '.claude', 'settings.json') },
+  { src: join(TPL, 'settings.json'), dst: join(ROOT, '.claude', 'settings.json'), rewriteHooks: true },
   { src: join(TPL, 'CLAUDE.md'), dst: join(ROOT, 'CLAUDE.md') },
 ];
-for (const { src, dst } of plan) {
+for (const { src, dst, rewriteHooks } of plan) {
   if (!existsSync(src)) die(`la plantilla no tiene ${tilde(src)}`);
   mkdirSync(dirname(dst), { recursive: true });
   const had = existsSync(dst);
   if (had && !force) {
     console.log(`  SKIP       ${rel(dst)}  (ya existe; usa --force para sobrescribir)`);
+  } else if (rewriteHooks) {
+    // '~' no se expande en los command de hooks de settings.json: reescribe ~/.claude/hooks/ al dir
+    // REAL del estudio (plugin o ~/.claude) para que el wiring de hooks del proyecto funcione.
+    const content = readFileSync(src, 'utf8').replace(/~\/\.claude\/hooks\//g, HOOKS_POSIX + '/');
+    writeFileSync(dst, content);
+    console.log(`  ${had ? 'OVERWRITE ' : 'COPY      '} ${rel(dst)}  (hooks → ${tilde(HOOKS_DIR)})`);
   } else {
     copyFileSync(src, dst);
     console.log(`  ${had ? 'OVERWRITE ' : 'COPY      '} ${rel(dst)}`);
@@ -143,8 +159,7 @@ check('CLAUDE.md presente en la raíz', existsSync(join(ROOT, 'CLAUDE.md')));
 // evals: rúbricas sembradas + grader keyless en disco
 const wantRubrics = ['brandbook.rubric.yaml', 'architecture.rubric.yaml', 'anti-placeholder.rubric.yaml'];
 for (const rb of wantRubrics) check(`eval ${rb}`, existsSync(join(evalsDst, rb)));
-const graderPath = join(HOME, '.claude', 'evals', 'providers', 'claude-cli.js');
-check('grader keyless claude-cli.js en disco', existsSync(graderPath), tilde(graderPath));
+check('grader keyless claude-cli.js en disco', existsSync(GRADER), tilde(GRADER));
 let graderRef = false;
 try { graderRef = /claude-cli\.js/.test(readFileSync(join(evalsDst, 'brandbook.rubric.yaml'), 'utf8')); } catch { /* */ }
 check('rúbricas apuntan al grader claude-cli.js', graderRef);
