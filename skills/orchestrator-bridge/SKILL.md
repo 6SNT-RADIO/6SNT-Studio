@@ -1,10 +1,10 @@
 ---
 name: orchestrator-bridge
-description: Para el orquestador. Loop despacho-aviso file-based (claude-heartbeat + AMQ) sin claude -p: lee el outbox del disco y reacciona; la aprobación de cada gate sigue siendo del PO (P-05).
+description: "For the orchestrator. File-based dispatch-notify loop (claude-heartbeat + AMQ) without claude -p: read the disk outbox and react; each gate's approval still belongs to the PO (P-05)."
 ---
 
-# SKILL: orchestrator-bridge — loop despacho→aviso file-based (Orquestador)
-- Ligero: claude-heartbeat (https://github.com/Siigari/claude-heartbeat) — consume io/inbox.jsonl (stop hook), escribe io/outbox.jsonl; heartbeat mantiene viva la sesión SIN claude -p.
-- Bus: AMQ (https://github.com/avivsinai/agent-message-queue) — Maildir crash-safe, Claude+Codex.
-- Serio/paralelo: cli-agent-orchestrator (AWS Labs, Apache), supervisor-worker headless.
-- El orquestador lee outbox del disco y reacciona; una tarea programada lo despierta a poll. La aprobación de gate sigue siendo del PO (P-05).
+# SKILL: orchestrator-bridge — file-based dispatch→notify loop (Orchestrator)
+- Lightweight: claude-heartbeat (https://github.com/Siigari/claude-heartbeat) — consumes io/inbox.jsonl (stop hook), writes io/outbox.jsonl; the heartbeat keeps the session alive WITHOUT claude -p.
+- Bus: AMQ (https://github.com/avivsinai/agent-message-queue) — crash-safe Maildir, Claude+Codex.
+- Serious/parallel: cli-agent-orchestrator (AWS Labs, Apache), headless supervisor-worker.
+- The orchestrator reads the disk outbox and reacts; a scheduled task wakes it to poll. Gate approval still belongs to the PO (P-05).

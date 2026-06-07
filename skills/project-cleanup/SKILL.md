@@ -1,54 +1,46 @@
 ---
 name: project-cleanup
-description: Para el Technical Writer (10). Inventariar y eliminar (solo con lista aprobada por el orquestador) archivos obsoletos de la raíz; sin archivar, sin cuarentena, sin 'por si acaso'. Úsalo en la limpieza activa de la raíz.
+description: "For the Technical Writer (10). Inventory and delete (only with an orchestrator-approved list) obsolete root files; no archiving, no quarantine, no 'just in case'. Use it for active root cleanup."
 ---
 
 # SKILL: project-cleanup
-## Para: Agente 10 — TECHNICAL WRITER
-## Versión: 1.0.0
+## For: Agent 10 — TECHNICAL WRITER
+## Version: 1.0.0
 
-## Principio fundamental
-Criterio de eliminación: "¿Este archivo le sirve a alguien que trabaja en el proyecto hoy?"
-Si NO → candidato a eliminar. Sin cuarentena. Sin archivar. Sin "por si acaso".
-Con aprobación del orquestador → eliminar definitivamente.
-Si está en Git, está en el historial. No necesita existir activo.
+## Core principle
+Deletion criterion: "Does this file serve anyone working on the project today?"
+If NOT → a deletion candidate. No quarantine. No archiving. No "just in case".
+With orchestrator approval → delete for good.
+If it's in Git, it's in the history. It doesn't need to exist live.
 
-## Proceso
-PASO 1 — Inventario: listar todos los archivos no-código con nombre, fecha, tamaño, descripción.
-PASO 2 — Clasificar: ACTIVO (no tocar) / OBSOLETO (candidato) / HISTÓRICO (evaluar) / DUPLICADO (eliminar viejo).
-PASO 3 — Lista de candidatos: nombre, por qué es candidato, qué lo reemplaza, riesgo (bajo/medio/alto).
-PASO 4 — Presentar CLEANUP_LIST.md al orquestador. No eliminar nada sin aprobación.
-PASO 5 — Con aprobación → eliminar y reportar.
+## Process
+STEP 1 — Inventory: list all non-code files with name, date, size, description.
+STEP 2 — Classify: ACTIVE (don't touch) / OBSOLETE (candidate) / HISTORICAL (evaluate) / DUPLICATE (delete the old one).
+STEP 3 — Candidate list: name, why it's a candidate, what replaces it, risk (low/medium/high).
+STEP 4 — Present CLEANUP_LIST.md to the orchestrator. Delete nothing without approval.
+STEP 5 — With approval → delete and report.
 
-## OBSOLETO — eliminar con aprobación
-Prompts de versiones anteriores, specs de features ya construidas,
-reportes de QA resueltos, archivos de experimentación sin uso,
-documentos intermedios con versión final aprobada.
+## OBSOLETE — delete with approval
+Prompts from earlier versions, specs of already-built features, resolved QA reports, unused experimentation files, intermediate documents with an approved final version.
 
-## HISTÓRICO — evaluar antes de decidir
-Decisiones de arquitectura (conservar si explican descartados),
-changelogs muy antiguos (si la info ya está en Git → eliminar),
-specs de features canceladas (eliminar — si se retoman, se rediseñan).
+## HISTORICAL — evaluate before deciding
+Architecture decisions (keep if they explain what was discarded), very old changelogs (if the info is already in Git → delete), specs of cancelled features (delete — if resumed, they're redesigned).
 
-## NUNCA ELIMINAR sin consenso
-× AGENTS.md, README.md, CLAUDE.md activos
-× Runbooks de procesos en uso
-× Contratos de APIs activos
-× Archivos que el código referencia directamente
-× .env.example y configs del entorno
+## NEVER DELETE without consensus
+× Active AGENTS.md, README.md, CLAUDE.md
+× Runbooks for processes in use
+× Contracts of active APIs
+× Files the code references directly
+× .env.example and environment configs
 
-## Señales de raíz contaminada
-Más de 5 .md en raíz fuera de los estándar, archivos con nombres
-"prompt_X/fix_v1/issues_vX/spec_borrador", múltiples versiones del mismo doc,
-archivos de más de 3 meses sin modificar, más docs que código.
+## Signs of a contaminated root
+More than 5 .md in the root beyond the standard ones, files named "prompt_X/fix_v1/issues_vX/spec_draft", multiple versions of the same doc, files untouched for over 3 months, more docs than code.
 
-## Estructura del CLEANUP_LIST.md
-Resumen (inventariados/candidatos/conservados) →
-Tabla candidatos (archivo/categoría/razón/riesgo/reemplazado por) →
-Archivos conservados con descripción → Pendiente de decisión
+## CLEANUP_LIST.md structure
+Summary (inventoried/candidates/kept) → Candidate table (file/category/reason/risk/replaced by) → Kept files with description → Pending decision
 
-## Errores a evitar
-× Eliminar sin lista aprobada
-× Archivar en old/ o backup/ en vez de eliminar
-× Eliminar archivos que el código referencia
-× "Por si acaso" como criterio de conservación
+## Mistakes to avoid
+× Deleting without an approved list
+× Archiving in old/ or backup/ instead of deleting
+× Deleting files the code references
+× "Just in case" as a keep criterion

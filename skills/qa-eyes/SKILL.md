@@ -1,56 +1,54 @@
 ---
 name: qa-eyes
-description: Para QA (08). Conducir la app REAL (computer-use en escritorio / Chrome en web), capturar estados y cazar placeholders/mocks disfrazados de real (auditoría P-11). Úsalo en el gate de QA, sobre la app real, no el mockup.
+description: "For QA (08). Drive the REAL app (computer-use on desktop / Chrome on web), capture states and catch placeholders/mocks disguised as real (P-11 audit). Use it at the QA gate, on the real app, not the mockup."
 ---
 
-# SKILL: qa-eyes — QA con ojos (Agente 08)
+# SKILL: qa-eyes — QA with eyes (Agent 08)
 
-**Propósito.** El QA no debe depender del PO para "ver" la app. Con este skill, el Agente 08 **conduce la aplicación real**, toma capturas, verifica estados y **caza placeholders/mocks disfrazados de real** — automáticamente.
+**Purpose.** QA must not depend on the PO to "see" the app. With this skill, Agent 08 **drives the real application**, takes screenshots, verifies states and **catches placeholders/mocks disguised as real** — automatically.
 
-> Origen: adaptado de gstack `/browse` + `/qa`. gstack usa Playwright (web); nosotros priorizamos **escritorio** vía computer-use.
-
----
-
-## Herramienta según el tipo de app
-- **App de escritorio (Electron, nativa):** `computer-use` MCP — `request_access` a la app, `screenshot`, `left_click`, `type`, `key`, `scroll`. ES el camino correcto para apps nativas.
-- **App web:** Claude-in-Chrome MCP (`navigate`, `get_page_text`, `screenshot`, `read_console_messages`).
-- Nunca afirmes un estado sin haberlo **visto** en una captura. Cero "debería funcionar".
+> Origin: adapted from gstack `/browse` + `/qa`. gstack uses Playwright (web); we prioritize **desktop** via computer-use.
 
 ---
 
-## Protocolo (un pase de QA)
-1. **Arranca la app** según su README (anótalo si requiere pasos no obvios — p. ej. build + Node concreto). Si no arranca, eso ya es un hallazgo **blocking**.
-2. **Recorre cada feature** del BRIEF. Por cada una: captura → compara contra el comportamiento esperado (BRANDBOOK/DATAMODEL) → registra con evidencia (ruta de la captura).
-3. **Camino de escritura** (lo crítico): crea un dato real, **cierra y reabre**, confirma que persiste. No asumas persistencia: verifícala.
-4. **Estados:** carga, vacío, error (provoca uno), éxito.
-5. **Consola/logs:** sin errores no manejados (P-06).
+## Tool by app type
+- **Desktop app (Electron, native):** `computer-use` MCP — `request_access` to the app, `screenshot`, `left_click`, `type`, `key`, `scroll`. This IS the right path for native apps.
+- **Web app:** Claude-in-Chrome MCP (`navigate`, `get_page_text`, `screenshot`, `read_console_messages`).
+- Never assert a state without having **seen** it in a screenshot. Zero "should work".
 
 ---
 
-## ⭐ Auditoría anti-placeholder (OBLIGATORIA — P-11)
-Por cada dato/asset visible, pregunta: **¿esto es real o un relleno?** Caza activamente:
-- Valores fijos que no cambian con la entrada (señal de mock).
-- Iconos/imágenes con iniciales/cuadros vacíos donde debería haber arte real.
-- Features que "responden" idéntico sin importar el input (OCR que devuelve siempre lo mismo, listas sembradas).
-- Banners tipo "modo desarrollo / datos de ejemplo" en un build que se presenta como real.
-Para cada hallazgo: ¿está **declarado** como diferido (backlog) o se **vende como real**? Lo segundo es un **defecto blocking**, no una nota.
+## Protocol (one QA pass)
+1. **Start the app** per its README (note it if it needs non-obvious steps — e.g. build + a specific Node). If it doesn't start, that's already a **blocking** finding.
+2. **Walk every feature** in the BRIEF. For each: screenshot → compare against expected behavior (BRANDBOOK/DATAMODEL) → record with evidence (screenshot path).
+3. **Write path** (the critical one): create real data, **close and reopen**, confirm it persists. Don't assume persistence: verify it.
+4. **States:** loading, empty, error (trigger one), success.
+5. **Console/logs:** no unhandled errors (P-06).
 
 ---
 
-## Salida: `docs/QA_REPORT.md`
-- **Health Score (0-100)** + conteo por severidad: `blocking / warning / nota`.
-- Cada hallazgo: descripción + **captura** + cómo reproducir + severidad.
-- Sección **Anti-placeholder** explícita (qué es real, qué es relleno, qué se vende mal).
-- **Veredicto del gate:** 0 blocking para aprobar. Lo diferido y **declarado** (PHASE2_BACKLOG) va como "fuera de alcance", no como defecto.
-- No arregles el código: **reporta**. El orquestador decide quién itera.
-
-## Ejemplo (1 línea de cada tipo)
-- ✅ Real: "Registré Maokai 2/4/17 → Dashboard muestra win rate 100%, KDA 6.3; persiste tras reabrir (captura qa-03.png)."
-- ❌ Placeholder vendido como real: "OCR devuelve Yasuo 8/3/11 para CUALQUIER captura → no lee la imagen; el botón sugiere que sí. BLOCKING salvo que se oculte/marque 'próximamente'."
+## ⭐ Anti-placeholder audit (MANDATORY — P-11)
+For each visible datum/asset, ask: **is this real or filler?** Actively hunt:
+- Fixed values that don't change with input (mock signal).
+- Icons/images with initials/empty boxes where real art should be.
+- Features that "respond" identically regardless of input (OCR always returning the same, seeded lists).
+- "Development mode / sample data" banners in a build presented as real.
+For each finding: is it **declared** as deferred (backlog) or **sold as real**? The latter is a **blocking defect**, not a note.
 
 ---
 
-## Prioriza por riesgo (no cobertura exhaustiva)
-Testea primero lo de mayor impacto y probabilidad de fallo: datos irrecuperables, dinero,
-autenticación, y el flujo crítico del BRIEF. No persigas testear todo. Declara en el reporte
-qué se priorizó y qué se omitió por bajo riesgo (con una línea de por qué).
+## Output: `docs/QA_REPORT.md`
+- **Health Score (0-100)** + count by severity: `blocking / warning / note`.
+- Each finding: description + **screenshot** + how to reproduce + severity.
+- Explicit **Anti-placeholder** section (what's real, what's filler, what's mis-sold).
+- **Gate verdict:** 0 blocking to approve. Deferred and **declared** items (PHASE2_BACKLOG) go as "out of scope", not as a defect.
+- Don't fix the code: **report**. The orchestrator decides who iterates.
+
+## Example (one line of each type)
+- ✅ Real: "Logged Maokai 2/4/17 → Dashboard shows 100% win rate, 6.3 KDA; persists after reopening (screenshot qa-03.png)."
+- ❌ Placeholder sold as real: "OCR returns Yasuo 8/3/11 for ANY screenshot → it doesn't read the image; the button implies it does. BLOCKING unless hidden/marked 'coming soon'."
+
+---
+
+## Prioritize by risk (not exhaustive coverage)
+Test the highest impact and failure-probability first: unrecoverable data, money, authentication, and the BRIEF's critical flow. Don't chase testing everything. Declare in the report what was prioritized and what was skipped as low-risk (with a one-line why).

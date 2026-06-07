@@ -1,8 +1,8 @@
 ---
 name: drift-protocol
-description: Para el orquestador. Protocolo aprobado-vs-construido (Divergence): si la implementación debe desviarse de lo aprobado, para, describe el conflicto, espera aprobación del PO y actualiza el doc antes de codear.
+description: "For the orchestrator. Approved-vs-built protocol (Divergence): if the implementation must deviate from what was approved, stop, describe the conflict, wait for PO approval, and update the doc before coding."
 ---
 
-# SKILL: drift-protocol — aprobado-vs-construido (Orquestador)
-- Divergence Protocol (de https://github.com/FredAntB/Spec-Driven-Development): si la implementación debe desviarse de lo aprobado → PARA, describe el conflicto, espera aprobación del PO, actualiza el doc aprobado, y recién entonces codea. Modo retrofit con marcas [TO VERIFY].
-- Complemento: claudewatch (drift de conducta) como señal de riesgo. Encaja con intake-scale-gating: drift alto → sube el nivel de gate.
+# SKILL: drift-protocol — approved-vs-built (Orchestrator)
+- Divergence Protocol (from https://github.com/FredAntB/Spec-Driven-Development): if the implementation must deviate from what was approved → STOP, describe the conflict, wait for PO approval, update the approved doc, and only then code. Retrofit mode with [TO VERIFY] marks.
+- Complement: claudewatch (behavioral drift) as a risk signal. Fits with intake-scale-gating: high drift → raise the gate level.
