@@ -1,42 +1,41 @@
 ---
 name: setup
-description: Activa el estudio CA6SNT en un proyecto. Corre el scaffolder studio-init (siembra .claude/settings.json, CLAUDE.md, evals/ y el smoke) y verifica la activación. Úsalo al instalar o iniciar el estudio en una carpeta de proyecto, antes de /startsnt.
+description: "Activates the CA6SNT studio in a project. Runs the studio-init scaffolder (seeds .claude/settings.json, CLAUDE.md, evals/ and the smoke) and verifies activation. Use it when installing or starting the studio in a project folder, before /startsnt."
 ---
 
-# SKILL: setup — activar el estudio en un proyecto (scaffolder)
+# SKILL: setup — activate the studio in a project (scaffolder)
 
-Activa la capa del estudio (agent-teams + hooks + telemetría + evals) en un proyecto, de forma
-**deliberada y por-proyecto**. La librería del plugin (agentes, skills, hooks, scripts, plantilla)
-ya está instalada por el plugin; este skill SIEMBRA la activación en la carpeta del proyecto y la VERIFICA.
+Activates the studio layer (agent-teams + hooks + telemetry + evals) in a project, **deliberately and
+per-project**. The plugin library (agents, skills, hooks, scripts, template) is already installed by the
+plugin; this skill SEEDS the activation into the project folder and VERIFIES it.
 
-## Cuándo usarlo
-- Al iniciar un proyecto nuevo del estudio (antes de `/startsnt`).
-- Para re-verificar o reparar la activación de un proyecto existente.
+## When to use it
+- When starting a new studio project (before `/startsnt`).
+- To re-verify or repair the activation of an existing project.
 
-## Qué hace
-Corre el scaffolder que copia la plantilla `templates/studio-project/{settings.json,CLAUDE.md}` al
-proyecto, siembra `evals/*.rubric.yaml` + el smoke (`tests/` + scaffold de `package.json`), e imprime
-un reporte OK/FALTA (flag agent-teams, hooks resueltos, telemetría OTel, rúbricas de evals).
+## What it does
+Runs the scaffolder that copies the template `templates/studio-project/{settings.json,CLAUDE.md}` into the
+project, seeds `evals/*.rubric.yaml` + the smoke (`tests/` + a `package.json` scaffold), and prints an
+OK/MISSING report (agent-teams flag, resolved hooks, OTel telemetry, eval rubrics).
 
-## Cómo correrlo
-SIEMPRE con la RUTA ABSOLUTA del proyecto (nunca `'.'`; en la raíz de un disco está prohibido y el
-script lo rechaza):
+## How to run it
+ALWAYS with the project's ABSOLUTE path (never `'.'`; a disk root is forbidden and the script rejects it):
 
 ```bash
-node "${CLAUDE_PLUGIN_ROOT}/scripts/studio-init.mjs" <RUTA-ABSOLUTA-DEL-PROYECTO>
+node "${CLAUDE_PLUGIN_ROOT}/scripts/studio-init.mjs" <ABSOLUTE-PROJECT-PATH>
 ```
 
-Es idempotente: no pisa un `settings.json` / `CLAUDE.md` existente sin `--force`.
+It is idempotent: it does not overwrite an existing `settings.json` / `CLAUDE.md` without `--force`.
 
-## Después del scaffolder (OBLIGATORIO)
-Greenfield es huevo-y-gallina: la carpeta y su `.claude/settings.json` no existen hasta correr esto,
-así que la sesión que inicializa casi nunca está rooteada en el proyecto. Abre una **sesión NUEVA
-rooteada en la carpeta del proyecto** (los hooks, el `CLAUDE.md` y la telemetría SOLO cargan al ABRIR
-la sesión ahí; no se recargan en caliente) y recién entonces usa `/startsnt`.
+## After the scaffolder (MANDATORY)
+Greenfield is chicken-and-egg: the folder and its `.claude/settings.json` don't exist until you run this,
+so the session that initializes is almost never rooted in the project. Open a **NEW session rooted in the
+project folder** (hooks, `CLAUDE.md` and telemetry ONLY load when the session OPENS there; they don't
+hot-reload) and only then use `/startsnt`.
 
-## Prerrequisito
-El estudio corre sobre agent-teams (experimental). Si no está activo, añade a `~/.claude/settings.json`
-y reinicia Claude Code:
+## Prerequisite
+The studio runs on agent-teams (experimental). If it's not active, add to `~/.claude/settings.json` and
+restart Claude Code:
 
 ```json
 { "env": { "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1" } }
