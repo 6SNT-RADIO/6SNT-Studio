@@ -1,0 +1,27 @@
+<svg viewBox="0 0 1280 640" xmlns="http://www.w3.org/2000/svg" font-family="'DejaVu Sans Mono','Consolas',monospace">
+<rect width="1280" height="640" fill="#0a0e17"/>
+<g fill="none" stroke="#1f9d8f" stroke-width="3" opacity="0.5">
+<path d="M1118,66 a56,56 0 0 1 56,56"/><path d="M1118,34 a88,88 0 0 1 88,88"/><path d="M1118,4 a118,118 0 0 1 118,118"/>
+<circle cx="1118" cy="122" r="6" fill="#1f9d8f" stroke="none"/>
+</g>
+<text x="80" y="116" font-size="25" letter-spacing="7" fill="#f0b429">CA6SNT · AGENT STUDIO</text>
+<text x="77" y="200" font-size="76" font-weight="700" letter-spacing="2" fill="#e8f0ff">6SNT-STUDIO</text>
+<text x="82" y="246" font-size="27" fill="#5d6b86">A gated, 10-agent pipeline for Claude Code</text>
+<line x1="48" y1="463" x2="1236" y2="463" stroke="#1b2840" stroke-width="2"/>
+<g text-anchor="middle">
+<g fill="none" stroke="#2a3a57" stroke-width="3">
+<rect x="57" y="430" width="90" height="66"/><rect x="176" y="430" width="90" height="66"/><rect x="296" y="430" width="90" height="66"/><rect x="415" y="430" width="90" height="66"/><rect x="535" y="430" width="90" height="66"/><rect x="654" y="430" width="90" height="66"/><rect x="774" y="430" width="90" height="66"/><rect x="893" y="430" width="90" height="66"/><rect x="1013" y="430" width="90" height="66"/><rect x="1132" y="430" width="90" height="66"/>
+</g>
+<g font-size="34" font-weight="700" fill="#cfe0f5"><text x="102" y="472">01</text><text x="221" y="472">02</text><text x="341" y="472">03</text><text x="460" y="472">04</text><text x="580" y="472">05</text><text x="699" y="472">06</text><text x="819" y="472">07</text><text x="938" y="472">08</text><text x="1058" y="472">09</text><text x="1177" y="472">10</text></g>
+<g font-size="18" fill="#6b80a6"><text x="102" y="491">STRAT</text><text x="221" y="491">RSRCH</text><text x="341" y="491">UX·UI</text><text x="460" y="491">ARCH</text><text x="580" y="491">DATA</text><text x="699" y="491">FE</text><text x="819" y="491">BE</text><text x="938" y="491">QA</text><text x="1058" y="491">SEC</text><text x="1177" y="491">DOCS</text></g>
+</g>
+<g fill="#1f9d8f"><path d="M632,456 l13,7 l-13,7 z"/><path d="M871,456 l13,7 l-13,7 z"/><path d="M1110,456 l13,7 l-13,7 z"/></g>
+<text x="759" y="471" font-size="30" fill="#1f9d8f" text-anchor="middle" font-weight="700">∥</text>
+<text x="759" y="514" font-size="15" fill="#52688a" text-anchor="middle">parallel</text>
+<g stroke="#f0b429" stroke-width="3"><line x1="161" y1="418" x2="161" y2="508"/><line x1="281" y1="418" x2="281" y2="508"/><line x1="400" y1="418" x2="400" y2="508"/><line x1="520" y1="418" x2="520" y2="508"/><line x1="998" y1="418" x2="998" y2="508"/><line x1="1232" y1="418" x2="1232" y2="508"/></g>
+<g fill="#f0b429"><path d="M161,414 l-7,-12 l14,0 z"/><path d="M281,414 l-7,-12 l14,0 z"/><path d="M400,414 l-7,-12 l14,0 z"/><path d="M520,414 l-7,-12 l14,0 z"/><path d="M998,414 l-7,-12 l14,0 z"/><path d="M1232,414 l-7,-12 l14,0 z"/></g>
+<g font-size="20" font-weight="700" fill="#f0b429" text-anchor="middle"><text x="161" y="396">G01</text><text x="281" y="396">G02</text><text x="400" y="396">G03</text><text x="520" y="396">G04</text><text x="998" y="396">G08</text><text x="1232" y="396">G10</text></g>
+<text x="80" y="566" font-size="28" letter-spacing="1" fill="#7286a6">10 stages  ·  6 human gates = PO approval  ·  MIT</text>
+<line x1="80" y1="598" x2="1200" y2="598" stroke="#1b2436" stroke-width="1"/>
+<text x="80" y="624" font-size="21" letter-spacing="3" fill="#52648a">CA6SNT · VALDIVIA · CHILE — the procedure is the product</text>
+</svg>

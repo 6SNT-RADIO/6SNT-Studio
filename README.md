@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/6snt-studio-social.svg" alt="6SNT-Studio — a gated, 10-agent software studio for Claude Code (agent-teams)" width="100%">
+</p>
+
 # 6SNT-Studio
 
 **A gated, 10-agent software studio for [Claude Code](https://docs.claude.com/en/docs/claude-code) (agent-teams).**
