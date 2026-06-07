@@ -12,8 +12,8 @@
     "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://localhost:4318/v1/traces",
     "OTEL_TRACES_EXPORT_INTERVAL": "3000",
     "OTEL_LOG_TOOL_DETAILS": "1",
-    "OTEL_SERVICE_NAME": "claude-code-studio",
-    "OTEL_RESOURCE_ATTRIBUTES": "studio=fleetview,deployment.environment=local"
+    "OTEL_SERVICE_NAME": "ca6snt-studio",
+    "OTEL_RESOURCE_ATTRIBUTES": "studio=ca6snt,deployment.environment=local"
   },
   "hooks": {
     "PreToolUse": [

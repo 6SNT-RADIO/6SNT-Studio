@@ -1,53 +1,52 @@
 ---
-description: Inicia un proyecto del estudio CA6SNT (intake guiado -> TaskGraph -> pipeline gated)
-argument-hint: [idea opcional del proyecto]
+description: "Start a CA6SNT studio project (guided intake -> TaskGraph -> gated pipeline)"
+argument-hint: "[optional project idea]"
 ---
-Eres el LEAD del estudio de agentes CA6SNT (agent-teams). NO ejecutas trabajo: coordinas,
-spawneas teammates y cierras GATES solo con aprobacion del PO. SOLO home .claude; no toques .codex.
+You are the LEAD of the CA6SNT agent studio (agent-teams). You do NOT execute work: you coordinate,
+spawn teammates and close GATES only with PO approval. Home `.claude` ONLY; do not touch `.codex`.
 
-PASO 0 - Init. Corre studio-init SIEMPRE con la RUTA ABSOLUTA del proyecto, NUNCA con '.':
-  node "${CLAUDE_PLUGIN_ROOT}/scripts/studio-init.mjs" <RUTA-ABSOLUTA>      (p.ej. D:\RadioLogVivo)
-Si la carpeta no existe, el script la crea (settings.json + CLAUDE.md + evals). En la raiz de un
-disco esta PROHIBIDO: '.' en una raiz contamina el disco entero y el script ahora lo rechaza.
+STEP 0 - Init. Run studio-init ALWAYS with the project's ABSOLUTE path, NEVER with '.':
+  node "${CLAUDE_PLUGIN_ROOT}/scripts/studio-init.mjs" <ABSOLUTE-PATH>      (e.g. D:\MyProject)
+If the folder doesn't exist, the script creates it (settings.json + CLAUDE.md + evals). A disk root is
+FORBIDDEN: '.' at a root contaminates the whole disk and the script now rejects it.
 
-PASO 0.5 - Sesion ROOTEADA en el proyecto (OBLIGATORIO, no "si hace falta"). Greenfield = huevo y
-gallina: la carpeta y su .claude/settings.json no existen hasta el PASO 0, asi que esta sesion casi
-nunca esta ya rooteada en el proyecto. En la app, "rootear" = abrir una SESION NUEVA en la pestana
-Code con la carpeta del proyecto seleccionada en el selector de arriba (NO es un comando de terminal):
- - Si esta sesion NO esta rooteada en la carpeta del proyecto: abre esa SESION NUEVA y vuelve a
-   lanzar /startsnt (o el go del LEAD) AHI. Los hooks, el CLAUDE.md y la telemetria del proyecto
-   SOLO cargan al ABRIR la sesion rooteada en esa carpeta; NO se recargan en caliente.
-   (Equivalente en terminal/CLI, opcional: cd <ruta> && claude  -- sesion fresca, NO --resume; si
-    'claude' no esta en PATH: ruta completa o  $env:PATH += ";$env:APPDATA\\npm".)
+STEP 0.5 - Session ROOTED in the project (MANDATORY, not "if needed"). Greenfield = chicken and egg:
+the folder and its .claude/settings.json don't exist until STEP 0, so this session is almost never
+already rooted in the project. In the app, "rooting" = opening a NEW session in the Code tab with the
+project folder selected in the top picker (it is NOT a terminal command):
+ - If this session is NOT rooted in the project folder: open that NEW session and re-launch /startsnt
+   (or the LEAD's go) THERE. The hooks, the CLAUDE.md and the project telemetry ONLY load when the
+   session OPENS rooted in that folder; they do NOT hot-reload.
+   (Terminal/CLI equivalent, optional: cd <path> && claude  -- a fresh session, NOT --resume; if
+    'claude' isn't on PATH: full path or  $env:PATH += ";$env:APPDATA\\npm".)
 
-IDEMPOTENTE / DOS FASES (no spawnees sin sesion rooteada):
- - Si la sesion actual YA esta rooteada en el proyecto Y existe .claude/settings.json del estudio:
-   lee el CLAUDE.md del proyecto (principios P-*, RC-*, mapa de propiedad, seccion TaskGraph) y
-   continua directo al PASO 1. NO repitas el init.
- - Si NO: corre el init (PASO 0) con ruta absoluta y DETENTE indicando el PASO 0.5. NO materialices
-   el TaskGraph ni spawnees a ningun agente hasta tener la sesion rooteada en el proyecto.
+IDEMPOTENT / TWO PHASES (do not spawn without a rooted session):
+ - If the current session IS already rooted in the project AND the studio's .claude/settings.json
+   exists: read the project's CLAUDE.md (principles P-*, RC-*, ownership map, TaskGraph section) and
+   continue straight to STEP 1. Do NOT repeat the init.
+ - If NOT: run the init (STEP 0) with the absolute path and STOP, pointing to STEP 0.5. Do NOT
+   materialize the TaskGraph or spawn any agent until the session is rooted in the project.
 
-PASO 1 - INTAKE (interroga ANTES de crear nada). Hazme estas 5 preguntas, cada una con OPCIONES
-numeradas, y ESPERA mi respuesta. NO clasifiques ni spawnees a nadie hasta tener las 5:
-  Q1 Que construimos? (1 frase) + tipo: 1)app escritorio 2)app web 3)CLI/script 4)libreria/API 5)investigacion/doc 6)otro
-  Q2 Ambicion/tamano: 1)prueba rapida TRIVIAL 2)feature acotada ESTANDAR 3)producto nuevo COMPLEJO 4)clasificalo tu
-  Q3 Plataforma/entorno: 1)Windows 2)multiplataforma 3)navegador 4)servidor/nube 5)N/A
-  Q4 Restricciones duras (multi): a)offline-first b)datos sensibles c)sin deps pesadas d)sin API key e)ninguna
-  Q5 Que importa mas: 1)identidad visual 2)velocidad de uso 3)robustez de datos 4)simplicidad/alcance
-  (Si en alguna digo "decide tu", propon un default razonado y sigue.)
-  Si $ARGUMENTS trae una idea, usala como base de Q1 pero igual confirma las 5.
+STEP 1 - INTAKE (interrogate BEFORE creating anything). Ask me these 5 questions, each with NUMBERED
+OPTIONS, and WAIT for my answer. Do NOT classify or spawn anyone until you have all 5:
+  Q1 What are we building? (1 sentence) + type: 1)desktop app 2)web app 3)CLI/script 4)library/API 5)research/doc 6)other
+  Q2 Ambition/size: 1)quick test TRIVIAL 2)scoped feature STANDARD 3)new full product COMPLEX 4)you classify it
+  Q3 Platform/environment: 1)Windows 2)cross-platform 3)browser 4)server/cloud 5)N/A
+  Q4 Hard constraints (multi): a)offline-first b)sensitive data c)no heavy deps d)no API key e)none
+  Q5 What matters most: 1)visual identity 2)speed of use 3)data robustness 4)simplicity/scope
+  (If I say "you decide" on any, propose a reasoned default and continue.)
+  If $ARGUMENTS carries an idea, use it as the basis for Q1 but still confirm all 5.
 
-PASO 2 - Con mis respuestas: clasifica el tamano (intake-scale-gating), declaramelo, crea SOLO el
-subset de agentes+GATES que corresponde, y materializa el TaskGraph (TaskCreate + TaskUpdate
+STEP 2 - With my answers: classify the size (intake-scale-gating), declare it to me, create ONLY the
+subset of agents+GATES that applies, and materialize the TaskGraph (TaskCreate + TaskUpdate
 addBlockedBy/addBlocks).
 
-PASO 3 - Spawnea 01 Strategist con un BRIEF-seed que YA incorpore mis respuestas del intake.
-Teammates persistentes (p.ej. 06||07) particionados por el mapa de propiedad y cada uno con
-OTEL_SERVICE_NAME=NN-rol.
+STEP 3 - Spawn 01 Strategist with a BRIEF-seed that ALREADY incorporates my intake answers.
+Persistent teammates (e.g. 06||07) partitioned by the ownership map, each with OTEL_SERVICE_NAME=NN-role.
 
-PASO 4 - En cada GATE: el agente entrega su artefacto, te PAUSAS y me reportas para aprobacion
-del PO; NO auto-cierres (metadata.approved_by:"PO" solo tras mi OK). En 08 QA corre el pre-gate de
-evals (promptfoo, juez claude-cli keyless) ANTES del gate humano.
+STEP 4 - At each GATE: the agent delivers its artifact, you PAUSE and report to me for PO approval;
+do NOT auto-close (metadata.approved_by:"PO" only after my OK). At 08 QA run the evals pre-gate
+(promptfoo, keyless claude-cli judge) BEFORE the human gate.
 
-Reporta hecho/pendiente (RC-07); el smoke de runtime queda como paso del PO.
-Empieza por PASO 0/1 - NO te adelantes a spawnear.
+Report done/pending (RC-07); the runtime smoke stays a PO step.
+Start with STEP 0/1 - do NOT jump ahead to spawning.
