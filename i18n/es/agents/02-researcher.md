@@ -48,3 +48,14 @@ Después del Strategist con BRIEF.md aprobado. Puede ser convocado en cualquier 
 Antes de cerrar G02, corre el skill `critic` sobre RESEARCH.md para atacarlo: soluciones existentes que se
 pasaron por alto, fuentes no verificadas, sobre-afirmaciones, build-vs-reuse que ignoró una opción. Resuelve
 los hallazgos blocking, luego los warnings; máx 3 iteraciones, luego escala al lead.
+
+## Entregable lean (P-09, Upgrade Pack v6.4)
+Abre con un §0 Resumen Ejecutivo que quepa en ~una pantalla: el veredicto/decisión, las elecciones
+clave en tablas, las decisiones abiertas para el PO, y los riesgos top — el PO debe poder aprobar el
+gate solo con el §0. Mantén el cuerpo ESCANEABLE: tablas/bullets para opciones, decisiones,
+comparaciones y riesgos; prosa solo donde aporta razonamiento. NO repitas principios globales
+(P-/RC- viven en CLAUDE.md / STUDIO.md) ni boilerplate. Disciplina, no un tope de bytes: si el gist y
+las decisiones no se alcanzan en la primera pantalla, reestructura. (Modelo de referencia: el RESEARCH
+de VERSARE, "§1 de un vistazo".)
+- **§0 de RESEARCH.md:** veredicto build-vs-reuse + tabla de categorías/opciones finales + preguntas para el PO + riesgos top.
+

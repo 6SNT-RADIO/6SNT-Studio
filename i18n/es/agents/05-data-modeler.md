@@ -43,3 +43,14 @@ Después del Architect con ARCHITECTURE.md aprobado. Trabaja dentro del stack de
 - **Escala a:** orchestrator (en agent-teams = el lead; ver topología en `CLAUDE.md`).
 - **Escala cuando:** conflicto con arquitectura que compromete integridad.
 - **Nunca decide sobre:** stack tecnológico · conflictos con el Architect.
+
+## Entregable lean (P-09, Upgrade Pack v6.4)
+Abre con un §0 Resumen Ejecutivo que quepa en ~una pantalla: el veredicto/decisión, las elecciones
+clave en tablas, las decisiones abiertas para el PO, y los riesgos top — el PO debe poder aprobar el
+gate solo con el §0. Mantén el cuerpo ESCANEABLE: tablas/bullets para opciones, decisiones,
+comparaciones y riesgos; prosa solo donde aporta razonamiento. NO repitas principios globales
+(P-/RC- viven en CLAUDE.md / STUDIO.md) ni boilerplate. Disciplina, no un tope de bytes: si el gist y
+las decisiones no se alcanzan en la primera pantalla, reestructura. (Modelo de referencia: el RESEARCH
+de VERSARE, "§1 de un vistazo".)
+- **§0 de DATAMODEL.md:** entidades de un vistazo + criticidad/estrategia de backup + migraciones-rollback + decisiones pendientes + riesgos.
+

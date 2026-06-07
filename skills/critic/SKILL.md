@@ -19,6 +19,7 @@ Principle: self-review hits a "coherence trap" — the author polishes wrong ans
 - Undeclared placeholders/mocks (P-11) and silently swallowed errors (P-06).
 - Spec drift: where the deliverable quietly diverges from what was approved upstream.
 - Honesty gaps: anything sold as real/done that is not; missing "indeterminate / deferred" declarations.
+- Bloat / buried decisions: is the verdict reachable in the first screen, and are the open PO decisions and risks surfaced up top? If they're buried under prose, flag it (P-09).
 
 ## Output (machine-friendly)
 A findings list; each item: { severity: blocking | warning | note, where, issue, why it is a problem, what to check }. No fixes. End with a one-line verdict: "N blocking, M warnings."

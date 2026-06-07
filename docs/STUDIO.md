@@ -1,5 +1,5 @@
 # STUDIO.md — Reglas de operación del estudio de agentes
-## CA6SNT · Versión 1.5.2 · 2026-06-07 (Upgrade Pack v6.3 aplicado)
+## CA6SNT · Versión 1.5.3 · 2026-06-07 (Upgrade Pack v6.4 aplicado)
 
 ---
 
@@ -499,9 +499,14 @@ v1.5.2 2026-06-07 Upgrade Pack v6.3 APLICADO — poda de skills (anti-bloat): fu
                   brand-evaluation-rubric, qa-verification → qa-eyes, security-gate → security-audit.
                   Catálogo 22→19 (repo). Refs reapuntadas (03 frontmatter, punteros ROL, índice de
                   skills); cero referencias colgantes. NO agente, NO gate.
+v1.5.3 2026-06-07 Upgrade Pack v6.4 APLICADO — lean-mode de docs (P-09) en 02/04/05: RESEARCH,
+                  ARCHITECTURE y DATAMODEL abren con un §0 Resumen Ejecutivo de ~1 pantalla (veredicto +
+                  tablas de decisión + decisiones-PO + riesgos) aprobable de un vistazo; cuerpo escaneable.
+                  Disciplina ESTRUCTURAL, no tope de bytes. + bullet en `critic` (caza decisiones
+                  enterradas / P-09). NO agente, NO gate, NO hook.
 ```
 
 ---
 
-*CA6SNT · Valdivia Chile · Estudio de Agentes v1.5.2 · 2026-06-07*
+*CA6SNT · Valdivia Chile · Estudio de Agentes v1.5.3 · 2026-06-07*
 *Orquestador: Claude Chat / Cowork*

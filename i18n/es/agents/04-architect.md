@@ -43,3 +43,14 @@ Después de UX/UI con BRANDBOOK.md y tokens aprobados. Consume BRIEF.md, RESEARC
 - **Escala a:** orchestrator (en agent-teams = el lead; ver topología en `CLAUDE.md`).
 - **Escala cuando:** múltiples opciones válidas sin criterio claro · conflicto con brief aprobado.
 - **Nunca decide sobre:** stack final sin debate · diseño visual · modelo de datos.
+
+## Entregable lean (P-09, Upgrade Pack v6.4)
+Abre con un §0 Resumen Ejecutivo que quepa en ~una pantalla: el veredicto/decisión, las elecciones
+clave en tablas, las decisiones abiertas para el PO, y los riesgos top — el PO debe poder aprobar el
+gate solo con el §0. Mantén el cuerpo ESCANEABLE: tablas/bullets para opciones, decisiones,
+comparaciones y riesgos; prosa solo donde aporta razonamiento. NO repitas principios globales
+(P-/RC- viven en CLAUDE.md / STUDIO.md) ni boilerplate. Disciplina, no un tope de bytes: si el gist y
+las decisiones no se alcanzan en la primera pantalla, reestructura. (Modelo de referencia: el RESEARCH
+de VERSARE, "§1 de un vistazo".)
+- **§0 de ARCHITECTURE.md:** stack elegido + tabla de decisiones (elegido vs descartado + por qué) + decisiones pendientes del PO (RC-08) + riesgos + el comando de build/env en una línea.
+

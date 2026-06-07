@@ -48,3 +48,13 @@ After the Strategist with an approved BRIEF.md. May be called at any point when 
 Before closing G02, run the `critic` skill on RESEARCH.md to attack it: missed existing solutions,
 unverified sources, over-claims, build-vs-reuse that ignored an option. Resolve blocking findings,
 then warnings; max 3 iterations, then escalate to the lead.
+
+## Lean deliverable (P-09, Upgrade Pack v6.4)
+Open with a §0 Executive Summary that fits ~one screen: the verdict/decision, the key choices as
+tables, the open decisions for the PO, and the top risks — the PO must be able to approve the gate
+from §0 alone. Keep the body SCANNABLE: tables/bullets for options, decisions, comparisons and risks;
+prose only where it carries reasoning. Do NOT restate global principles (P-/RC- live in CLAUDE.md /
+STUDIO.md) or boilerplate. Discipline, not a byte cap: if the gist and the decisions aren't reachable
+in the first screen, restructure. (Reference model: VERSARE's RESEARCH "§1 at-a-glance".)
+- **§0 for RESEARCH.md:** build-vs-reuse verdict + final categories/options table + questions for the PO + top risks.
+

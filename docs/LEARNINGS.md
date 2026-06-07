@@ -72,3 +72,6 @@ Mantenlo corto y accionable. Borra lo que quede obsoleto.
 
 - `[2026-06-07 · estudio · anti-bloat]` **Poda de skills = fusionar solapadas en su keeper PRESERVANDO contenido.** RC-06: mover las secciones sustantivas al keeper (no reescribir), verificar que no quede nada único sin migrar, y RECIÉN ENTONCES borrar el origen. No forzar un número: solo lo realmente redundante. → **Regla: el catálogo de skills se PODA fusionando duplicados en su keeper (cero pérdida, cero referencias colgantes), no acumulando.** (Evidencia: v6.3 fusionó brand-evaluation→brand-evaluation-rubric, qa-verification→qa-eyes, security-gate→security-audit; 22→19.)
 
+
+- `[2026-06-07 · estudio · proceso]` **Docs de planificación abren con §0 ejecutivo de 1 pantalla; cuerpo escaneable (tablas).** P-09 como disciplina ESTRUCTURAL, no tope de bytes (un tope sería anti-razonamiento). → **Regla: RESEARCH/ARCHITECTURE/DATAMODEL abren con §0 (veredicto + decisiones-PO + riesgos) aprobable de un vistazo; el detalle va abajo; el cuerpo usa tablas/bullets.** (Evidencia: ARCH ~47k / DATAMODEL ~52k / RESEARCH ~44k en 3 builds; el PO debe poder aprobar el gate desde §0.)
+
