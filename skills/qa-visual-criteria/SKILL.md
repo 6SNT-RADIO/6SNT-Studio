@@ -1,49 +1,43 @@
 ---
 name: qa-visual-criteria
-description: Para QA (08). Criterios del gate en tres dimensiones (funcional / visual / performance) con aceptación 0 warnings, clasificación blocking/warning y estructura del QA_REPORT.md. Úsalo al ejecutar el gate de calidad.
+description: "For QA (08). Gate criteria across three dimensions (functional / visual / performance) with 0-warnings acceptance, blocking/warning classification and the QA_REPORT.md structure. Use it when running the quality gate."
 ---
 
 # SKILL: qa-visual-criteria
-## Para: Agente 08 — QA
-## Versión: 1.0.0
+## For: Agent 08 — QA
+## Version: 1.0.0
 
-## Principio fundamental
-Gate de aceptación: 0 warnings — no es "sin blocking", es sin nada.
-Estrategia: blocking primero en loop → luego warnings hasta 0.
-Si itera más de 3 veces sobre el mismo problema → parar y escalar.
+## Core principle
+Acceptance gate: 0 warnings — not "no blocking", but nothing at all.
+Strategy: blocking first in a loop → then warnings down to 0.
+If it iterates more than 3 times on the same problem → stop and escalate.
 
-## Clasificación
-BLOCKING: producto no funciona en flujo principal, pérdida de datos,
-componente crítico no renderiza, overflow horizontal, error sin mensaje,
-performance >3s sin feedback, seguridad comprometida.
-WARNING: inconsistencia visual menor, sin skeleton de carga,
-texto truncado, spacing fuera de tokens, tipografía fuera de escala,
-performance degradada no crítica, accesibilidad básica ausente.
+## Classification
+BLOCKING: product doesn't work in the main flow, data loss, a critical component doesn't render, horizontal overflow, error with no message, performance >3s with no feedback, security compromised.
+WARNING: minor visual inconsistency, no loading skeleton, truncated text, spacing outside tokens, typography off-scale, non-critical degraded performance, basic accessibility missing.
 
-## Dimensión visual
-Tipografía: fuentes y tamaños según tokens, peso consistente por nivel.
-Layout: sin overflow en ningún breakpoint, espaciados consistentes, sin elementos superpuestos.
-Componentes: colores según tokens, radio consistente, estados presentes (default/hover/active/disabled).
+## Visual dimension
+Typography: fonts and sizes per tokens, consistent weight per level.
+Layout: no overflow at any breakpoint, consistent spacing, no overlapping elements.
+Components: colors per tokens, consistent radius, states present (default/hover/active/disabled).
 
-## Dimensión funcional
-Estados siempre presentes: carga, error, vacío, éxito.
-Flujo principal de punta a punta sin errores ni callejones.
-Formularios: validación visible, destructivas con confirmación, sin duplicados.
+## Functional dimension
+States always present: loading, error, empty, success.
+Main flow end-to-end with no errors or dead ends.
+Forms: visible validation, destructive actions with confirmation, no duplicates.
 
-## Dimensión performance — solo medir, nunca proponer soluciones
-Carga inicial: FCP <2s. Navegación: transiciones <500ms.
-APIs: <500ms consultas simples, blocking si >3s sin feedback.
-Reportar con números exactos y condiciones de medición.
-Herramientas: DevTools Network/Performance, Playwright, Console.time().
+## Performance dimension — only measure, never propose solutions
+Initial load: FCP <2s. Navigation: transitions <500ms.
+APIs: <500ms for simple queries, blocking if >3s with no feedback.
+Report with exact numbers and measurement conditions.
+Tools: DevTools Network/Performance, Playwright, Console.time().
 
-## Estructura del QA_REPORT.md
-Resumen (X blocking, Y warnings, estado) →
-Blocking findings (ID, descripción, evidencia, impacto, propuesta, estado) →
-Warnings (misma estructura) → Métricas de performance → Iteraciones → Estado final
+## QA_REPORT.md structure
+Summary (X blocking, Y warnings, status) → Blocking findings (ID, description, evidence, impact, proposal, status) → Warnings (same structure) → Performance metrics → Iterations → Final status
 
-## Errores a evitar
-× Passed con warnings pendientes
-× Proponer soluciones de performance sin medir
-× Continuar en loop después de 3 intentos fallidos
-× Reportar "lento" sin número exacto
-× Ejecutar acciones destructivas durante el QA
+## Mistakes to avoid
+× Passed with pending warnings
+× Proposing performance solutions without measuring
+× Continuing the loop after 3 failed attempts
+× Reporting "slow" without an exact number
+× Running destructive actions during QA

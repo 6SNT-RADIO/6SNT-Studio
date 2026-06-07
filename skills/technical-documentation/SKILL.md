@@ -1,57 +1,54 @@
 ---
 name: technical-documentation
-description: Para el Technical Writer (10). Documentar la realidad (no el ideal) para dos audiencias (PO e IA); si el código y la doc difieren, manda el código; actualizar antes de crear; menos doc que producto. Úsalo al cerrar etapas.
+description: "For the Technical Writer (10). Document reality (not the ideal) for two audiences (PO and AI); if code and docs differ, code wins; update before creating; less doc than product. Use it when closing stages."
 ---
 
 # SKILL: technical-documentation
-## Para: Agente 10 — TECHNICAL WRITER
-## Versión: 1.0.0
+## For: Agent 10 — TECHNICAL WRITER
+## Version: 1.0.0
 
-## Principio fundamental
-La documentación documenta la realidad — no el ideal.
-Si el código dice una cosa y la documentación dice otra, el código manda.
-No se escribe documentación aspiracional — solo lo que existe hoy.
+## Core principle
+Documentation documents reality — not the ideal.
+If the code says one thing and the docs say another, the code wins.
+No aspirational documentation — only what exists today.
 
-## Audiencias
-Product Owner: README.md (arrancar el proyecto), runbooks operativos, CHANGELOG.md.
-Criterios: lenguaje claro, sin jerga, paso a paso, sin asumir conocimiento técnico.
+## Audiences
+Product Owner: README.md (start the project), operational runbooks, CHANGELOG.md.
+Criteria: clear language, no jargon, step by step, assuming no technical knowledge.
 
-IA ejecutora: AGENTS.md (contexto + reglas + restricciones), CLAUDE.md/CODEX.md,
-contratos de APIs, docstrings en módulos críticos.
-Criterios: explícito sobre qué NO hacer, rutas exactas, sin ambigüedades.
+Executing AI: AGENTS.md (context + rules + constraints), CLAUDE.md/CODEX.md, API contracts, docstrings in critical modules.
+Criteria: explicit about what NOT to do, exact paths, no ambiguity.
 
-Ambas: runbooks técnico-operativos, decisiones de arquitectura.
-Separar secciones por audiencia — humanos primero, IA después.
+Both: technical-operational runbooks, architecture decisions.
+Separate sections by audience — humans first, AI second.
 
-## Proceso
-PASO 1 — Verificar existente: qué está desactualizado, qué falta, qué sobra.
-PASO 2 — Actualizar antes de crear. Marcar deuda técnica si no se puede actualizar.
-PASO 3 — Escribir solo lo que no existe y es necesario.
-Regla: 3 archivos de código no necesitan 10 de documentación.
-PASO 4 — Declarar deuda técnica explícitamente si el código está mal construido.
+## Process
+STEP 1 — Verify the existing: what's outdated, what's missing, what's extra.
+STEP 2 — Update before creating. Mark technical debt if it can't be updated.
+STEP 3 — Write only what doesn't exist and is necessary.
+Rule: 3 code files don't need 10 docs.
+STEP 4 — Declare technical debt explicitly if the code is badly built.
 
-## Estructura mínima por documento
-README.md: Qué es → Requisitos → Cómo arrancar → Cómo se usa → Estructura del proyecto.
-AGENTS.md: Identidad → Reglas inamovibles → Arquitectura → Estado actual → Flujo de trabajo.
-Contratos API: método/ruta, descripción, parámetros, respuesta, errores, restricciones.
-Runbooks: título, cuándo usarlo, prerrequisitos, pasos exactos, qué hacer si falla.
+## Minimal structure per document
+README.md: What it is → Requirements → How to start → How it's used → Project structure.
+AGENTS.md: Identity → Immovable rules → Architecture → Current state → Workflow.
+API contracts: method/route, description, parameters, response, errors, constraints.
+Runbooks: title, when to use it, prerequisites, exact steps, what to do if it fails.
 
-## Señales de documentación desactualizada
-⚠ Referencia archivos que no existen
-⚠ Rutas no coinciden con la estructura real
-⚠ Comandos que no funcionan al ejecutarlos
-⚠ Reglas de AGENTS.md que no coinciden con el comportamiento real
+## Signs of outdated documentation
+⚠ References files that don't exist
+⚠ Paths don't match the real structure
+⚠ Commands that don't work when run
+⚠ AGENTS.md rules that don't match real behavior
 
-## Documentación buena vs mala
-Buena: persona nueva arranca sin preguntar, IA modifica sin romper nada crítico,
-rutas y reglas coinciden con la realidad.
-Mala: hay que leer el código para entender la doc, instrucciones que no funcionan en todas las máquinas,
-doc más larga que el código que documenta.
+## Good vs bad documentation
+Good: a new person starts without asking, an AI modifies without breaking anything critical, paths and rules match reality.
+Bad: you have to read the code to understand the doc, instructions that don't work on every machine, doc longer than the code it documents.
 
-## Errores a evitar
-× Documentar el ideal en vez de la realidad
-× Dejar desactualizada sin marcarla
-× Duplicar información entre documentos
-× Usar jerga en documentos para el PO
-× Omitir restricciones en AGENTS.md
-× Producir más documentación que la que se consume
+## Mistakes to avoid
+× Documenting the ideal instead of reality
+× Leaving it outdated without marking it
+× Duplicating information across documents
+× Using jargon in PO documents
+× Omitting constraints in AGENTS.md
+× Producing more documentation than is consumed

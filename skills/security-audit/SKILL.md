@@ -1,47 +1,45 @@
 ---
 name: security-audit
-description: Para Security (09). Auditoría de SOLO LECTURA como si el repo fuera público: credenciales, inputs, auth, logging, dependencias; severidad local vs distribución pública; falsos positivos justificados. Úsalo antes de cualquier release.
+description: "For Security (09). READ-ONLY audit as if the repo were public: credentials, inputs, auth, logging, dependencies; local vs public-distribution severity; justified false positives. Use it before any release."
 ---
 
 # SKILL: security-audit
-## Para: Agente 09 — SECURITY REVIEWER
-## Versión: 1.0.0
+## For: Agent 09 — SECURITY REVIEWER
+## Version: 1.0.0
 
-## Principio fundamental
-Todo se audita como si fuera distribución pública y repo público.
-No existe "es solo local" como justificación. Solo lectura. Nunca modificar nada.
+## Core principle
+Everything is audited as if it were public distribution and a public repo.
+"It's only local" is not a justification. Read-only. Never modify anything.
 
-## Proceso
-PASO 1 — Reconocimiento: estructura, stack, puntos de entrada, dependencias, configs.
-PASO 2 — Herramientas automáticas: análisis estático (Bandit/ESLint security),
-análisis de dependencias (Safety/npm audit), patrones inseguros. Guardar output completo.
-PASO 3 — Análisis manual: credenciales, validación de inputs, endpoints sin auth,
-logging sensible, patrones de acceso a datos. Evidencia exacta (archivo + línea).
-PASO 4 — Clasificar: severidad local vs distribución pública. No inflar ni minimizar.
-PASO 5 — Completar reporte completo antes de escalar, aunque haya críticos.
+## Process
+STEP 1 — Recon: structure, stack, entry points, dependencies, configs.
+STEP 2 — Automated tools: static analysis (Bandit/ESLint security), dependency analysis (Safety/npm audit), insecure patterns. Save the full output.
+STEP 3 — Manual analysis: credentials, input validation, endpoints without auth, sensitive logging, data-access patterns. Exact evidence (file + line).
+STEP 4 — Classify: local vs public-distribution severity. Don't inflate or minimize.
+STEP 5 — Complete the full report before escalating, even if there are criticals.
 
-## Qué buscar
-Credenciales: API keys/tokens/passwords hardcodeados, .env en repo, secretos en comentarios.
-Inputs: SQL injection, comandos sin sanitizar, deserialización sin validación.
-Auth: endpoints sin protección, tokens sin expiración, comparación insegura de passwords.
-Logging: datos personales en logs, stack traces al usuario, rutas internas en errores.
-Dependencias: CVEs conocidos, deps abandonadas, versiones no fijadas.
+## What to look for
+Credentials: hardcoded API keys/tokens/passwords, .env in the repo, secrets in comments.
+Inputs: SQL injection, unsanitized commands, deserialization without validation.
+Auth: unprotected endpoints, tokens without expiry, insecure password comparison.
+Logging: personal data in logs, stack traces to the user, internal paths in errors.
+Dependencies: known CVEs, abandoned deps, unpinned versions.
 
-## Severidad
-CRÍTICO: credencial en código, SQL injection, endpoint admin sin auth.
-ALTO: CVE alto en dependencia, input sin validar en endpoint público, logging de datos personales.
-MEDIO: dep desactualizada sin CVE, info técnica en errores al usuario.
-BAJO: código comentado con info histórica, configs de dev en producción.
-FALSO POSITIVO: documentar y justificar siempre, nunca ignorar en silencio.
+## Severity
+CRITICAL: credential in code, SQL injection, admin endpoint without auth.
+HIGH: high CVE in a dependency, unvalidated input in a public endpoint, logging of personal data.
+MEDIUM: outdated dep without CVE, technical info in errors to the user.
+LOW: commented code with historical info, dev configs in production.
+FALSE POSITIVE: always document and justify, never ignore silently.
 
-## Reglas absolutas
-× NUNCA modificar archivos
-× NUNCA ejecutar la aplicación
-× NUNCA acceder a .env o config con credenciales reales
-× NUNCA escalar hallazgo individual antes de terminar el reporte completo
+## Absolute rules
+× NEVER modify files
+× NEVER run the application
+× NEVER access .env or config with real credentials
+× NEVER escalate an individual finding before finishing the full report
 
-## Errores a evitar
-× Falso positivo sin justificación
-× Escalar antes de terminar el reporte
-× Reportar sin evidencia exacta
-× No verificar .gitignore
+## Mistakes to avoid
+× A false positive without justification
+× Escalating before finishing the report
+× Reporting without exact evidence
+× Not checking .gitignore

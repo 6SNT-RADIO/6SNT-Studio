@@ -1,48 +1,43 @@
 ---
 name: research-methodology
-description: Para el Researcher (02). Investigar el contexto externo desde el brief, reutilizar antes de construir (plugins/MCPs/APIs/librerías), con recomendación explícita y fuentes calificadas. Úsalo al armar el RESEARCH.md.
+description: "For the Researcher (02). Research the external context from the brief, reuse before building (plugins/MCPs/APIs/libraries), with an explicit recommendation and qualified sources. Use it when building the RESEARCH.md."
 ---
 
 # SKILL: research-methodology
-## Para: Agente 02 — RESEARCHER
-## Versión: 1.0.0
+## For: Agent 02 — RESEARCHER
+## Version: 1.0.0
 
-## Propósito
-Este skill define cómo investigar el contexto externo de un proyecto.
-El objetivo es entregar información accionable. Cada hallazgo debe tener
-contexto suficiente para que el orquestador y el PO puedan decidir.
+## Purpose
+This skill defines how to research a project's external context. The goal is to deliver actionable information. Every finding must have enough context for the orchestrator and PO to decide.
 
-## Principio fundamental
-Antes de recomendar construir algo, verificar que no existe.
-Antes de recomendar una tecnología, verificar que resuelve el problema específico.
-Nunca investigar en abstracto — siempre en relación al brief.
+## Core principle
+Before recommending to build something, verify it doesn't exist.
+Before recommending a technology, verify it solves the specific problem.
+Never research in the abstract — always in relation to the brief.
 
-## Proceso
-PASO 1 — Leer el brief completo. Identificar el problema central, usuario,
-restricciones y lo que explícitamente NO es el producto.
-PASO 2 — Buscar en orden: herramientas completas → plugins/MCPs/APIs → librerías → patrones.
-Por cada solución: qué resuelve, qué no, licencia, madurez, integración con el stack.
-PASO 3 — Analizar 3-5 productos similares: qué hacen bien, qué mal, diferenciador.
-PASO 4 — Explorar tangentes si cambiarían alguna decisión del proyecto.
-PASO 5 — Armar el reporte con recomendación explícita por sección.
+## Process
+STEP 1 — Read the full brief. Identify the core problem, user, constraints, and what the product explicitly is NOT.
+STEP 2 — Search in order: complete tools → plugins/MCPs/APIs → libraries → patterns. For each solution: what it solves, what it doesn't, license, maturity, integration with the stack.
+STEP 3 — Analyze 3-5 similar products: what they do well, what badly, the differentiator.
+STEP 4 — Explore tangents if they would change a project decision.
+STEP 5 — Build the report with an explicit recommendation per section.
 
-## Criterios de fuentes
-ALTA: documentación oficial, GitHub activo, changelog reciente, casos reales.
-MEDIA: artículos técnicos recientes, comparativas con metodología.
-DESCARTAR: marketing sin evidencia, artículos sin fecha, opiniones sin contexto.
+## Source criteria
+HIGH: official documentation, active GitHub, recent changelog, real cases.
+MEDIUM: recent technical articles, comparisons with methodology.
+DISCARD: marketing without evidence, undated articles, opinions without context.
 
-## Recomendar integrar si:
-Resuelve mejor de lo que podríamos construir, costo menor, activamente mantenido, licencia compatible.
+## Recommend integrating if:
+It solves it better than we could build, lower cost, actively maintained, compatible license.
 
-## Recomendar construir si:
-No existe nada que resuelva el problema específico, o las dependencias complican más de lo que ayudan.
+## Recommend building if:
+Nothing solves the specific problem, or the dependencies complicate more than they help.
 
-## Estructura del RESEARCH.md
-Resumen ejecutivo → Soluciones existentes → Productos similares →
-Tecnologías relevantes → Patrones → Riesgos → Oportunidades → Recomendación final
+## RESEARCH.md structure
+Executive summary → Existing solutions → Similar products → Relevant technologies → Patterns → Risks → Opportunities → Final recommendation
 
-## Errores a evitar
-× Investigar sin leer el brief primero
-× Recomendar sin verificar licencia
-× Confundir popular con adecuado para este proyecto
-× Presentar links sin contexto
+## Mistakes to avoid
+× Researching without reading the brief first
+× Recommending without verifying the license
+× Confusing popular with suitable for this project
+× Presenting links without context
