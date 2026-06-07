@@ -1,0 +1,25 @@
+# electron-builder.yml — SCAFFOLD del estudio (Upgrade Pack v5.3 · recipe Electron, la actual; no la única, P-10).
+# Produce el ARTEFACTO que el gate de RELEASE (DoD v5.2) verifica. El packaging es PROPIEDAD de 07 BACKEND y
+# parte de su "terminado" (no post-release). El Architect/Backend ajusta appId/productName/icon por proyecto.
+appId: com.studio.studio-project
+productName: studio-project
+directories:
+  output: release          # el gate DoD busca el artefacto bajo release/ (o dist/)
+files:
+  - dist/**
+  - electron.cjs
+  - package.json
+  - "!**/*.map"
+# Si el proyecto provisiona datos (skill asset-sourcing), empaquétalos como recurso (ajusta o quita si no aplica):
+extraResources:
+  - from: data
+    to: data
+    filter: ["**/*"]
+win:
+  target:
+    - portable             # un .exe único (validación rápida)
+    - nsis                 # instalador
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true

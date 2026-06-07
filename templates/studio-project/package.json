@@ -1,0 +1,14 @@
+{
+  "//": "SCAFFOLD del estudio (Upgrade Pack v5.1/v5.3). El Architect (04)/Backend (07) EXTIENDE este package.json (stack/deps) o lo REEMPLAZA si el stack no es Node. CONSERVA: 'smoke' (skill smoke-test) + 'dist' (electron-builder, recipe Electron). El packaging (dist) es PROPIEDAD de 07 y parte de su 'terminado' (v5.3), no post-release. El gate de RELEASE (DoD v5.2) verifica el artefacto que 'dist' produce.",
+  "name": "studio-project",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "smoke": "playwright test tests/smoke.spec.ts",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "electron-builder": "^25.1.8"
+  }
+}

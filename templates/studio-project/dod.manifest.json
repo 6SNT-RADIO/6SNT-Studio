@@ -1,0 +1,8 @@
+{
+  "//": "DoD manifest del gate de RELEASE (Upgrade Pack v5.2/v5.3). taskcompleted-gate.mjs lo lee para verificar MECANICAMENTE, ADEMAS del [PO-OK] del PO (P-05, separado): (a) artefacto ejecutable, (b) smoke pass reciente, (c) assets. Ajusta por stack (P-10). Recipe actual = Electron (release/ + .exe portable/nsis).",
+  "artifactDirs": ["release", "dist"],
+  "artifactExts": [".exe", ".msi", ".AppImage", ".dmg", ".pkg", ".deb", ".rpm"],
+  "smokeResult": "tests/smoke-result.json",
+  "smokeMaxAgeHours": 72,
+  "//assets": "Assets 'si aplica': si NO declaras assetsDir/assets aqui, el gate usa la CONVENCION (si existe data/ o hay script fetch-assets, exige data/ con datos reales; si no hay, no aplica). Para forzar, agrega: \"assetsDir\": \"data\"  (o \"assets\": [\"data/dxcc.json\", \"data/cty.dat\"])."
+}
