@@ -22,6 +22,7 @@ Ten specialized agents plus a non-producing Lead. **Hard rule: an agent only *wr
 - **09 Security is read-only:** it never writes, runs, or modifies code or the app; its only writable output is its own report.
 - **Frontend ∥ Backend** run in parallel, isolated by the ownership map (06 owns the presentation layer; 07 owns main/core/preload). The integration contract is defined *first*; integration doubts are escalated to the lead, not edited across the boundary.
 - **07 owns packaging:** shipping the executable artifact (e.g. portable + installer) is part of its "done", not a post-release afterthought.
+- **Adversarial pre-gate (`critic`):** 02, 04, 08 and 09 run the `critic` skill on their own deliverable before its gate (external review beats self-review). 04 uses it for **cross-artifact consistency** at G04 (does ARCHITECTURE honor BRIEF / RESEARCH / BRANDBOOK?).
 
 ## Escalation topology
 
