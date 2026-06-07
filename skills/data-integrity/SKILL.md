@@ -1,49 +1,45 @@
 ---
 name: data-integrity
-description: Para Data Modeler (05). Diseñar datos con integridad, crecimiento, backup y migraciones con rollback; capa de acceso, writer único, lectores read-only. Úsalo al modelar entidades y el DATAMODEL.md.
+description: "For the Data Modeler (05). Design data with integrity, growth, backup and migrations with rollback; access layer, single writer, read-only readers. Use it when modeling entities and the DATAMODEL.md."
 ---
 
 # SKILL: data-integrity
-## Para: Agente 05 — DATA MODELER
-## Versión: 1.0.0
+## For: Agent 05 — DATA MODELER
+## Version: 1.0.0
 
-## Principios globales — aplican a todos los proyectos
-1. NUNCA modificar datos directamente — siempre vía capa de acceso.
-2. WRITER ÚNICO — un solo punto de escritura por entidad crítica.
-3. LECTORES READ-ONLY — separar capa de lectura de escritura.
-4. BACKUP SIEMPRE — si el usuario no puede recuperar los datos, hay backup.
-5. TODA MIGRACIÓN TIENE ROLLBACK — definido y probado antes de ejecutar.
+## Global principles — apply to all projects
+1. NEVER modify data directly — always via the access layer.
+2. SINGLE WRITER — one write point per critical entity.
+3. READ-ONLY READERS — separate the read layer from the write layer.
+4. ALWAYS BACK UP — if the user can't recover the data, there is a backup.
+5. EVERY MIGRATION HAS A ROLLBACK — defined and tested before running.
 
-## Proceso
-PASO 1 — Identificar entidades: qué existe, atributos, relaciones,
-cuáles son críticas (pérdida irreversible) vs derivadas (recalculables).
-PASO 2 — Clasificar por criticidad: CRÍTICOS → IMPORTANTES → DERIVADOS → TEMPORALES.
-PASO 3 — Diseñar esquema: tipos precisos, índices para queries frecuentes,
-constraints NOT NULL/UNIQUE/FK/CHECK. No optimizar prematuramente.
-PASO 4 — Diseñar para crecimiento: campos opcionales, PKs sin lógica de negocio,
-relaciones N:M desde el inicio si hay riesgo, tipos con margen.
-PASO 5 — Diseñar migraciones: script forward + rollback + datos afectados.
-PASO 6 — Definir backup: frecuencia, ubicación, verificación de integridad, proceso de restauración.
+## Process
+STEP 1 — Identify entities: what exists, attributes, relationships, which are critical (irreversible loss) vs derived (recomputable).
+STEP 2 — Classify by criticality: CRITICAL → IMPORTANT → DERIVED → TEMPORARY.
+STEP 3 — Design the schema: precise types, indexes for frequent queries, NOT NULL/UNIQUE/FK/CHECK constraints. Don't optimize prematurely.
+STEP 4 — Design for growth: optional fields, PKs with no business logic, N:M relationships from the start if there's risk, types with headroom.
+STEP 5 — Design migrations: forward script + rollback + affected data.
+STEP 6 — Define backup: frequency, location, integrity verification, restore process.
 
-## Criterios de esquema
-Nombres: tablas en plural, columnas descriptivas, FK con nombre que indica relación.
-Tipos: fechas como fecha, booleanos como booleano, IDs como entero o UUID.
-Constraints: NOT NULL donde siempre hay valor, UNIQUE donde aplica, CASCADE/RESTRICT según lógica.
+## Schema criteria
+Names: tables plural, descriptive columns, FKs named to indicate the relationship.
+Types: dates as date, booleans as boolean, IDs as integer or UUID.
+Constraints: NOT NULL where there's always a value, UNIQUE where applicable, CASCADE/RESTRICT per logic.
 
-## Señales de alerta — escalar al orquestador
-⚠ Tabla con más de 40 columnas
-⚠ Datos críticos sin backup
-⚠ Migración que elimina columnas con datos existentes
-⚠ JOIN de más de 4 tablas
-⚠ Datos de negocio en JSON sin estructura
-⚠ PK basada en lógica de negocio
+## Warning signs — escalate to the orchestrator
+⚠ Table with more than 40 columns
+⚠ Critical data with no backup
+⚠ Migration that drops columns with existing data
+⚠ JOIN of more than 4 tables
+⚠ Business data in unstructured JSON
+⚠ PK based on business logic
 
-## Estructura del DATAMODEL.md
-Entidades → Relaciones → Esquema DDL → Índices → Migraciones →
-Clasificación por criticidad → Estrategia de backup → Plan de integridad → Alertas de conflicto
+## DATAMODEL.md structure
+Entities → Relationships → DDL schema → Indexes → Migrations → Criticality classification → Backup strategy → Integrity plan → Conflict warnings
 
-## Errores a evitar
-× Diseñar solo para el estado actual
-× Strings para fechas o booleanos
-× Migraciones sin rollback
-× Asumir que el backup se hace después
+## Mistakes to avoid
+× Designing only for the current state
+× Strings for dates or booleans
+× Migrations without rollback
+× Assuming backup happens later

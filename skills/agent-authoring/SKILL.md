@@ -1,17 +1,17 @@
 ---
 name: agent-authoring
-description: Escribir o editar definiciones de agente magras y sin bloat (una responsabilidad, un entregable, sin repetir los principios globales). Úsalo solo al crear o modificar un agente del estudio.
+description: "Write or edit lean, bloat-free agent definitions (one responsibility, one deliverable, without repeating the global principles). Use it only when creating or modifying a studio agent."
 ---
 
-# SKILL: agent-authoring — escribir/editar TOMLs de agente magros
-Úsalo solo al crear o editar un agente. Objetivo: agentes claros, no inflados.
-## Estructura mínima
-id/rol · objetivo (1 frase) · qué lee · UN entregable + su gate · criterios (bullets) ·
-reglas (RC + escalamiento) · modelo (tier).
-## Checklist anti-bloat (rechaza el TOML si falla)
-- [ ] Una sola responsabilidad.
-- [ ] NO repite los principios globales (P-01..P-11 viven en STUDIO.md).
-- [ ] Sin contradicciones ni tan rígido que impida razonar (OVER_CONSTRAINED).
-- [ ] Sin referencias a archivos/skills inexistentes (ORPHAN).
-- [ ] Ejemplos solo si aportan (anti BLOATED).
-- [ ] Objetivo y entregable inequívocos (anti VAGUE).
+# SKILL: agent-authoring — write/edit lean agent definitions
+Use it only when creating or editing an agent. Goal: clear agents, not bloated ones.
+## Minimal structure
+id/role · objective (1 sentence) · what it reads · ONE deliverable + its gate · criteria (bullets) ·
+rules (RC + escalation) · model (tier).
+## Anti-bloat checklist (reject the definition if it fails)
+- [ ] A single responsibility.
+- [ ] Does NOT repeat the global principles (P-01..P-11 live in STUDIO.md).
+- [ ] No contradictions, and not so rigid it prevents reasoning (OVER_CONSTRAINED).
+- [ ] No references to non-existent files/skills (ORPHAN).
+- [ ] Examples only if they add value (anti BLOATED).
+- [ ] Unambiguous objective and deliverable (anti VAGUE).

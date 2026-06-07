@@ -1,32 +1,32 @@
 ---
 name: asset-sourcing
-description: Aprovisionar datos/assets externos REALES de forma automatizada (script de fetch cableado al build, idempotente, con licencia y fallback declarado), nunca placeholders. Cualquier dominio. Úsalo cuando el producto necesita una fuente externa.
+description: "Provision REAL external data/assets automatically (a fetch script wired to the build, idempotent, with license and declared fallback), never placeholders. Any domain. Use it when the product needs an external source."
 ---
 
-# SKILL: asset-sourcing — datos/assets REALES, aprovisionados, nunca placeholders
-Regla (P-11 con dientes): antes de usar cualquier dato o asset EXTERNO que el producto necesita, obtén la fuente REAL y APROVISIÓNALA de forma automática. Si no hay fuente, ESCALA; nunca caigas a placeholder/mock/iniciales/datos vacíos sin DECLARARLO. Aplica a CUALQUIER dominio (P-10).
+# SKILL: asset-sourcing — REAL data/assets, provisioned, never placeholders
+Rule (P-11 with teeth): before using any EXTERNAL datum or asset the product needs, obtain the REAL source and PROVISION it automatically. If there is no source, ESCALATE; never fall back to placeholder/mock/initials/empty data without DECLARING it. Applies to ANY domain (P-10).
 
-## Alcance (cualquier dominio)
-Cubre TODO asset/dato externo que el producto requiere, no solo código ni solo arte:
-- datasets y tablas/padrones de referencia
-- fuentes tipográficas (fonts)
-- íconos y arte
-- modelos
-- lookup tables / archivos de referencia
+## Scope (any domain)
+Covers EVERY external asset/datum the product requires, not just code or art:
+- datasets and reference tables/registries
+- typefaces (fonts)
+- icons and art
+- models
+- lookup tables / reference files
 
-## Patrón de aprovisionamiento (obligatorio)
-1. **Script de fetch** (p. ej. `scripts/fetch-assets.*`) que descarga la fuente REAL a la ruta exacta donde el código la consume.
-2. **Cableado a `build:all`** ANTES del paso de build → el aprovisionamiento NO es un paso manual para el PO.
-3. **Idempotente:** cachea + verifica integridad; si ya existe y es válido, no re-descarga.
-4. **Fallback DECLARADO (P-11) + error explícito (P-06):** si una descarga falla, error claro (qué fuente, qué pasó) y degradación DECLARADA (el dato faltante se marca como tal; el lookup/resolver devuelve vacío honesto) — NUNCA un placeholder que aparente real ni un fallo silencioso.
-5. **Atribución de licencia:** registra la licencia de cada fuente en un archivo `NOTICE`.
-6. **Sin dependencia de CDN en runtime (P-02):** el asset se bundlea/cachea LOCAL.
+## Provisioning pattern (mandatory)
+1. **Fetch script** (e.g. `scripts/fetch-assets.*`) that downloads the REAL source to the exact path where the code consumes it.
+2. **Wired into `build:all`** BEFORE the build step → provisioning is NOT a manual step for the PO.
+3. **Idempotent:** cache + verify integrity; if it already exists and is valid, do not re-download.
+4. **DECLARED fallback (P-11) + explicit error (P-06):** if a download fails, a clear error (which source, what happened) and DECLARED degradation (the missing datum is marked as such; the lookup/resolver returns an honest empty) — NEVER a placeholder that looks real, nor a silent failure.
+5. **License attribution:** record each source's license in a `NOTICE` file.
+6. **No runtime CDN dependency (P-02):** the asset is bundled/cached LOCALLY.
 
-## Nota de entorno
-El entorno del agente puede no poder descargar (límites de red). El estudio igual AUTORA la automatización (script + cableado a build); el build del PO la EJECUTA. Nunca se entrega la descarga como "tarea manual del PO".
+## Environment note
+The agent's environment may be unable to download (network limits). The studio still AUTHORS the automation (script + build wiring); the PO's build EXECUTES it. The download is never delivered as a "manual PO task".
 
-## Herramientas (referencia)
-- Íconos de UI: **better-icons** (https://github.com/better-auth/better-icons) — `npx better-icons setup`; trae el SVG real LOCAL, sin CDN en runtime.
-- Otros datos/assets: la fuente canónica que corresponda, descargada en build a una carpeta de recursos y cacheada local.
+## Tools (reference)
+- UI icons: **better-icons** (https://github.com/better-auth/better-icons) — `npx better-icons setup`; brings the real SVG LOCAL, no runtime CDN.
+- Other data/assets: the appropriate canonical source, downloaded at build into a resources folder and cached locally.
 
-QA lo audita: un dato/asset externo entregado como paso manual, o un placeholder no declarado, es un DEFECTO — no una entrega.
+QA audits it: an external datum/asset delivered as a manual step, or an undeclared placeholder, is a DEFECT — not a delivery.
