@@ -90,6 +90,24 @@ Antes de reportar al PO, **08 QA** corre la(s) rúbrica(s) relevante(s) sobre lo
 el `score`/`pass` + el texto del juicio al `QA_REPORT.md`, y resuelve los `fail` antes del gate humano.
 Ver `STUDIO.md` → "Pre-gate de evals".
 
+## Jurado de 3 jueces — gates subjetivos y bordes (Upgrade Pack v6.2)
+
+Donde la calidad es **subjetiva** (marca, G03), un solo juez sesga. La rúbrica de marca corre con un
+**jurado keyless de 3 tiers de Claude** (`opus` + `sonnet` + `haiku`) vía el mismo `claude-cli.js`:
+agrega **mediana** de los scores + **mayoría** de los pass; `reason` concatena el juicio de cada juez.
+Sin API key, sin modelos de terceros — diversidad real con lo que ya tienes.
+
+- **Cómo se activa:** en la rúbrica, `provider.config.models: [opus, sonnet, haiku]` (ya puesto en
+  `brandbook.rubric.yaml`). Sin `models`, el provider corre **1 juez** (igual que antes).
+- **Anti-bloat / cost-aware:** el jurado corre SOLO en la rúbrica de marca; las objetivas
+  (`architecture`, `anti-placeholder`, `contract.types`) siguen con **1 juez**.
+- **Regla "borde → jurado":** para una rúbrica de 1 juez, si el `score` cae a **±0.1 del umbral**
+  (decisión ambigua), re-corre ESA rúbrica como jurado y toma la mediana antes de reportar al PO
+  (`--config.models=opus,sonnet,haiku`). El jurado entra solo en los casos cerrados; el ~95% sigue
+  con 1 juez. **3× solo donde de verdad importa.**
+- **P-06:** si un juez cae (timeout/exit≠0/vacío), se descarta y se agrega con los que respondieron; si
+  caen TODOS, el provider devuelve `{ error }` (no inventa veredicto).
+
 ---
 
 ## Gotcha — inyectar un archivo de CÓDIGO (.ts/.js) como var de TEXTO  (2026-06-06 · RadioLogVivo)

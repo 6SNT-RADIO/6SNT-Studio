@@ -14,6 +14,8 @@ defaultTest:
     # JUEZ keyless: usa la suscripción del Claude Code instalado (OAuth), no ANTHROPIC_API_KEY.
     provider:
       id: file://~/.claude/evals/providers/claude-cli.js
+      config:
+        models: [opus, sonnet, haiku]
 
 prompts:
   - |

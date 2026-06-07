@@ -1,5 +1,5 @@
 # STUDIO.md — Reglas de operación del estudio de agentes
-## CA6SNT · Versión 1.4.0 · 2026-06-06 (Upgrade Pack v5 aplicado)
+## CA6SNT · Versión 1.5.1 · 2026-06-07 (Upgrade Pack v6.2 aplicado)
 
 ---
 
@@ -482,9 +482,21 @@ v1.4.0 2026-06-06 Upgrade Pack v5 APLICADO + cierre anti-bloat (capa agent-teams
                   (decisiones/escalados; estado mecánico vía OTel/Jaeger + TaskList), poda de contexto (no
                   inflar CLAUDE.md/STUDIO, no importar marketplaces). +4 lecciones de v5 en LEARNINGS.
                   Origen: orquestación real de RadioLogVivo (6SNT.LLFH).
+v1.5.0 2026-06-07 Upgrade Pack v6.1 APLICADO — skill `critic` (revisión adversarial pre-gate) en 02/08/09
+                  (capa agent-teams · dual-home: ES en ~/.claude, EN en el repo). Revisión externa que ATACA
+                  el entregable ANTES del gate humano (contradicciones, puntos ciegos, sobre-afirmaciones,
+                  drift de spec, placeholders/errores tragados). NO agente, NO gate — capacidad sobre gates
+                  existentes (anti-bloat: 1 pasada adversarial ≈ 80% de reflexion, al costo de un prompt).
+v1.5.1 2026-06-07 Upgrade Pack v6.2 APLICADO — jurado LLM-as-judge keyless cost-aware en el pre-gate de
+                  evals (capa agent-teams · dual-home). El provider `claude-cli.js` admite `config.models`
+                  (array de tiers): corre el MISMO prompt con opus+sonnet+haiku y agrega mediana + mayoría
+                  (P-06: descarta jueces caídos; si caen todos, error). Activo SOLO en la rúbrica de marca
+                  (G03, subjetiva); las objetivas siguen con 1 juez y el jurado entra por la regla
+                  "borde → jurado" (score a ±0.1 del umbral). Cost-aware: 3× solo donde importa. + sección
+                  en 08-qa, evals/README y LEARNINGS.
 ```
 
 ---
 
-*CA6SNT · Valdivia Chile · Estudio de Agentes v1.4.0 · 2026-06-06*
+*CA6SNT · Valdivia Chile · Estudio de Agentes v1.5.1 · 2026-06-07*
 *Orquestador: Claude Chat / Cowork*

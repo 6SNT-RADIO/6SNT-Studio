@@ -66,3 +66,6 @@ Mantenlo corto y accionable. Borra lo que quede obsoleto.
 
 - `[2026-06-07 · estudio · proceso]` **Revisión adversarial externa > auto-revisión.** La auto-revisión cae en "trampa de coherencia": el autor pule respuestas equivocadas. Una pasada de crítico independiente y fresco ANTES del gate caza puntos ciegos que el autor no ve. → **Regla: implementar la revisión adversarial como SKILL reusable invocado por el agente productor (02/08/09), NO como un agente nuevo ni un council multi-modelo (anti-bloat).** (Evidencia: retro de 3 builds + research 2026 — reflexion con retornos decrecientes; el único robo útil del "council".)
 
+
+- `[2026-06-07 · estudio · proceso]` **Jurado solo donde es subjetivo o al borde.** Un jurado de 3 tiers de Claude (opus/sonnet/haiku, keyless vía `claude-cli.js`) baja el sesgo de un solo juez en lo subjetivo (marca/G03); en lo objetivo, 1 juez basta y el jurado entra solo en puntajes-borde (±0.1 del umbral). → **Regla: jurado SOLO donde es subjetivo o al borde — cost-aware (3× solo donde importa, no en todo); sin API key ni modelos de terceros (mediana + mayoría, P-06 descarta jueces caídos).** (Evidencia: research 2026 — LLM-as-judge útil acotado a gates subjetivos.)
+
