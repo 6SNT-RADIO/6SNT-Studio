@@ -1,0 +1,15 @@
+{
+  "name": "6SNT-Studio",
+  "displayName": "CA6SNT Agent Studio",
+  "description": "A gated 10-agent studio for building software with Claude Code (agent-teams).",
+  "author": { "name": "CA6SNT (Luis Soto)", "url": "https://github.com/6SNT-RADIO" },
+  "plugins": [
+    {
+      "name": "studio",
+      "displayName": "CA6SNT Studio",
+      "description": "10 specialized agents, skills, hooks, gated pipeline, /startsnt kickoff and project scaffolder.",
+      "version": "0.1.0",
+      "source": "."
+    }
+  ]
+}

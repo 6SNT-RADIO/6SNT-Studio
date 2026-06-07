@@ -19,6 +19,29 @@ Ten specialized AI agents build software in a disciplined pipeline. Each agent o
 
 ---
 
+## Install (Claude Code)
+
+In a Claude Code session:
+
+```
+/plugin marketplace add 6SNT-RADIO/6SNT-Studio
+/plugin install studio@6SNT-Studio
+```
+
+That installs the 10 agents, the skills, the hooks, the `/startsnt` kickoff command and the project scaffolder. Private repo? run `gh auth login` once first.
+
+**Prerequisite — enable agent-teams.** The studio runs on Claude Code's experimental *agent-teams*. A plugin can't enable this for you, so add the flag to your `~/.claude/settings.json` and restart Claude Code:
+
+```json
+{ "env": { "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1" } }
+```
+
+*(Optional: OpenTelemetry env vars for local observability — see [docs/PIPELINE.md](docs/PIPELINE.md).)*
+
+> The runnable components ship in an upcoming sanitized commit; until then `marketplace add` registers the studio and the manifest.
+
+---
+
 ## The idea in one picture
 
 ```
@@ -82,7 +105,7 @@ The lead may bump a tier for a one-off hard task.
 
 - ✅ Method validated by building **real desktop apps** end-to-end through the full gated pipeline (QA caught real domain bugs; Security remediated findings; brand & architecture passed machine rubrics).
 - ✅ Runs on Claude Code **agent-teams** with native OpenTelemetry observability and `promptfoo` evals as a pre-gate.
-- 🛠️ **This commit ships the docs & specs.** The runnable files (agent definitions, skills, hooks, scaffolder, project template) land in a **sanitized second commit** — they live outside this repo today and are added after a secret sweep.
+- 🛠️ **This commit ships the docs, specs & plugin manifest.** The runnable files (agent definitions, skills, hooks, scaffolder, project template) land in a **sanitized second commit** — they live outside this repo today and are added after a secret sweep.
 
 ---
 

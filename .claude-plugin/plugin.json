@@ -1,0 +1,10 @@
+{
+  "name": "studio",
+  "version": "0.1.0",
+  "description": "Gated 10-agent software studio for Claude Code agent-teams: agents 01-10, skills, hooks, /startsnt and a project scaffolder.",
+  "author": { "name": "CA6SNT (Luis Soto)", "url": "https://github.com/6SNT-RADIO" },
+  "homepage": "https://github.com/6SNT-RADIO/6SNT-Studio",
+  "repository": { "type": "git", "url": "https://github.com/6SNT-RADIO/6SNT-Studio.git" },
+  "license": "MIT",
+  "keywords": ["agent-teams", "orchestration", "multi-agent", "claude-code", "software-development"]
+}
