@@ -1,0 +1,69 @@
+# architecture.rubric.yaml — PRE-GATE de G04 (arquitectura)
+# Skills fuente: architecture-decision + env-reproducible. Checklist sobre ARCHITECTURE.md + el
+# contrato src/shared/types.ts. Juez (grader) = Claude vía CLI, SIN API key (ver evals/README.md).
+#
+#   Correr desde la raíz del proyecto:  npx promptfoo eval -c evals/architecture.rubric.yaml
+#   Requiere que existan ARCHITECTURE.md y src/shared/types.ts (entregables de G04).
+description: "G04 · ARCHITECTURE.md + src/shared/types.ts — stack justificado, P-01/02/06, env reproducible, contrato"
+
+providers:
+  - id: echo
+
+defaultTest:
+  options:
+    provider:
+      id: file://~/.claude/evals/providers/claude-cli.js
+
+prompts:
+  - |
+    ===== ARCHITECTURE.md =====
+    {{architecture}}
+
+    ===== src/shared/types.ts (contrato de integración) =====
+    {{types}}
+
+tests:
+  - description: "Pre-gate de arquitectura sobre ARCHITECTURE.md + types.ts"
+    vars:
+      architecture: file://../ARCHITECTURE.md
+      # types.ts se carga vía loader .mjs (devuelve su TEXTO). NO usar `file://../src/shared/types.ts`
+      # directo: promptfoo importaría el .ts como módulo y fallaría con "(intermediate value) is not a
+      # function". Ver evals/read-contract.mjs y evals/README.md (gotcha de carga de vars .ts/.js).
+      types: file://./read-contract.mjs
+    assert:
+      - type: llm-rubric
+        value: |
+          Eres el juez de arquitectura del estudio CA6SNT. Calificas el ENTREGABLE de G04
+          (ARCHITECTURE.md + el contrato src/shared/types.ts) contra un checklist DURO. El stack
+          sigue al problema: cada decisión se justifica por el problema, no por familiaridad.
+
+          CHECKLIST (marca cumple/no-cumple con evidencia del texto):
+          1. STACK JUSTIFICADO: evalúa 2–3 opciones por capa con pros/contras EN CONTEXTO (no en
+             abstracto) y documenta lo DESCARTADO y por qué.
+          2. P-01 (app nativa): el producto se empaqueta/ejecuta como app nativa; no "localhost en el
+             browser" como entrega final.
+          3. P-02 (repo público): nada de credenciales/datos sensibles en código; secretos por env/config.
+          4. P-06 (errores explícitos): manejo de errores explícito declarado; ningún error se traga
+             sin registrar.
+          5. ENV REPRODUCIBLE (skill env-reproducible): runtime fijado POR-PROYECTO (mise.toml, o Volta
+             `volta pin`), + `engines` + `engine-strict`/guard `preinstall` que falla claro si el
+             runtime no coincide, + UN comando de build único declarado.
+          6. CONTRATO PRESENTE: src/shared/types.ts existe y es REAL (no vacío/stub); cubre la
+             superficie de integración (estado interno/IPC, no solo la API "pública") — habilita el
+             trabajo paralelo 06∥07 sin tocar el archivo del otro.
+          7. MANTENIBILIDAD: módulos con responsabilidad clara, dependencias explícitas y mínimas, sin
+             lógica crítica en archivos monolíticos (>2000 líneas), una IA puede modificar un módulo
+             entendiendo solo ese módulo.
+          8. ESTRUCTURA del ARCHITECTURE.md: evaluación de stack → estructura del sistema → estructura
+             de carpetas → decisiones técnicas → decisiones pendientes de aprobación (PO) → riesgos →
+             limitaciones del entorno.
+
+          CRITERIO DE PASS: pasa SOLO si los puntos 2, 3, 4, 5 y 6 se cumplen (duros) Y al menos 7 de 8
+          en total. Si falta el contrato real (6) o la reproducibilidad de entorno (5), FALLA.
+
+          Responde SOLO con un objeto JSON (sin texto fuera del objeto):
+          {
+            "reason": "checklist 1–8 con cumple/no-cumple + evidencia breve || huecos duros || top 2 acciones con severidad",
+            "score": <0.0–1.0 = nº de ítems cumplidos / 8>,
+            "pass": <true|false según el criterio>
+          }

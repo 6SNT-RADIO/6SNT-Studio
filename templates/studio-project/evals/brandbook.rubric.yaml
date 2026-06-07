@@ -1,0 +1,68 @@
+# brandbook.rubric.yaml — PRE-GATE de G03 (identidad visual)
+# Skill fuente: brand-evaluation-rubric (Design Score / AI-Slop). Vuelve medible P-03.
+# Juez (grader) = Claude vía CLI, SIN API key (ver evals/README.md). Target = echo: el "output a
+# juzgar" es el contenido del entregable tal cual (no se llama a ningún LLM en el target).
+#
+#   Correr desde la raíz del proyecto:  npx promptfoo eval -c evals/brandbook.rubric.yaml
+description: "G03 · BRANDBOOK.md + TOKENS.css — Design Score / AI-Slop"
+
+providers:
+  - id: echo # el output a calificar = el entregable (passthrough, sin coste de tokens)
+
+defaultTest:
+  options:
+    # JUEZ keyless: usa la suscripción del Claude Code instalado (OAuth), no ANTHROPIC_API_KEY.
+    provider:
+      id: file://~/.claude/evals/providers/claude-cli.js
+
+prompts:
+  - |
+    ===== BRANDBOOK.md =====
+    {{brandbook}}
+
+    ===== TOKENS.css =====
+    {{tokens}}
+
+tests:
+  - description: "Pre-gate de identidad sobre BRANDBOOK + TOKENS"
+    vars:
+      brandbook: file://../BRANDBOOK.md
+      tokens: file://../TOKENS.css
+    assert:
+      - type: llm-rubric
+        value: |
+          Eres el juez de identidad visual del estudio CA6SNT. Calificas el ENTREGABLE que recibes
+          como output (un BRANDBOOK.md + su TOKENS.css): su identidad DECLARADA y la coherencia del
+          sistema de tokens. Esto vuelve medible el principio P-03 ("sin genérico, con personalidad
+          propia"): deja de ser opinión, son dos puntajes con nota A–F y evidencia.
+
+          DOS PUNTAJES (A–F):
+          - Design Score: ¿personalidad, jerarquía, coherencia, intención?
+          - AI-Slop Score: ¿cuánto se parece a "lo hizo una IA sin gusto"? (A = nada de slop; F = plantilla pura)
+
+          DETECTOR DE AI-SLOP — cuenta cuántos de estos 10 anti-patrones aparecen (cada uno baja la nota):
+          1) gradiente morado/azul de héroe; 2) grid de 3 columnas con iconos en círculos; 3) una sola
+          sans neutra (p.ej. Inter) en TODO, sin segunda fuente de display; 4) todo centrado, sin
+          asimetría ni foco; 5) border-radius uniforme y burbujeante en todo; 6) blobs/decoraciones
+          flotantes sin función; 7) escala de títulos plana (sin drama); 8) espaciado sin ritmo (todo
+          16/24, sin grid real); 9) CTA tipo "Get Started" idéntico al de cualquier SaaS; 10) paleta
+          sin intención (>12 colores no-grises, o un acento sin reglas de uso).
+
+          CATEGORÍAS (califica A–F cada una): Tipografía · Espaciado/ritmo · Jerarquía · Color ·
+          Estados de interacción · Movimiento · Densidad/foco · Coherencia identidad↔tokens ·
+          Personalidad (¿memorable o plantilla?) · Accesibilidad visual (contraste).
+          REQUISITO DURO: el sistema de tokens cubre la identidad declarada; cero hex/fuentes
+          "sueltas" implícitas fuera de los tokens en lo que el BRANDBOOK promete.
+
+          PRIMERO da la "reacción de un vistazo" (3 frases: qué comunica, a qué va el ojo primero, y
+          un veredicto en UNA palabra). Es lo más valioso; el resto es evidencia.
+
+          CRITERIO DE PASS: pasa SOLO si Design Score ≥ B (personalidad sólida) Y AI-Slop ≤ 2
+          anti-patrones presentes. Si no, falla.
+
+          Responde SOLO con un objeto JSON (sin texto fuera del objeto):
+          {
+            "reason": "vistazo (3 frases + palabra) || Design Score: <letra> (<x>/10) || AI-Slop: <letra> (<n>/10 anti-patrones) || categorías flojas || top 2 mejoras con severidad",
+            "score": <número 0.0–1.0 = Design Score en escala 0–10 dividido por 10; p.ej. 8.7/10 => 0.87>,
+            "pass": <true|false>
+          }

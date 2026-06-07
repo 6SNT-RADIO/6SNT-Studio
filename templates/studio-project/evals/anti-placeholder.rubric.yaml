@@ -1,0 +1,54 @@
+# anti-placeholder.rubric.yaml — auditoría P-11 (apoyo a 08 QA)
+# "PLACEHOLDER DECLARADO O NO HAY PLACEHOLDER": un placeholder NO declarado que aparenta ser real
+# es un DEFECTO, no una entrega. Juez (grader) = Claude vía CLI, SIN API key (ver evals/README.md).
+#
+#   Correr desde la raíz del proyecto:  npx promptfoo eval -c evals/anti-placeholder.rubric.yaml
+#   Repunta `target` (o duplica el bloque `tests:`) al entregable/archivo bajo auditoría.
+description: "P-11 · Anti-placeholder — ¿hay placeholders no declarados que aparenten ser reales?"
+
+providers:
+  - id: echo
+
+defaultTest:
+  options:
+    provider:
+      id: file://~/.claude/evals/providers/claude-cli.js
+
+prompts:
+  - "{{target}}"
+
+tests:
+  # Por defecto audita el README (doc de cara al usuario). Para auditar otro entregable, cambia la
+  # ruta de `target`, o añade más entradas a `tests:` (una por archivo).
+  - description: "P-11 sobre el entregable apuntado por target"
+    vars:
+      target: file://../README.md
+    assert:
+      - type: llm-rubric
+        value: |
+          Eres el auditor anti-placeholder del estudio CA6SNT (P-11). Revisas el ENTREGABLE que
+          recibes como output. Buscas PLACEHOLDERS NO DECLARADOS que aparentan ser reales: datos,
+          assets, métricas, enlaces, credenciales, ejemplos o copy "de relleno" presentados como si
+          fueran reales, SIN una marca explícita de que son provisionales.
+
+          Señales de placeholder no declarado (cada hallazgo cuenta):
+          - Lorem ipsum / "TODO" / "TBD" / "xxx" / "foo/bar" presentados como contenido final.
+          - Cifras o métricas redondas inventadas ("99.9%", "10,000 usuarios") sin fuente.
+          - Enlaces/rutas/emails de ejemplo (example.com, your-domain, placeholder@…, /path/to/…).
+          - Imágenes/íconos/assets "temporales" descritos como definitivos.
+          - Texto generado que finge especificidad pero no dice nada (relleno).
+          - Claves/tokens/IDs falsos que parecen reales.
+
+          NO penalices lo que está DECLARADO como provisional (p.ej. "<PROYECTO>", "TODO: …",
+          "ejemplo:", "placeholder —", marcadores entre < > o claramente rotulados). Eso es correcto
+          según P-11: declarado está permitido; lo prohibido es el no-declarado que aparenta real.
+
+          CRITERIO DE PASS: pasa SOLO si NO hay placeholders NO declarados (cero). Cualquier
+          placeholder no declarado que aparente real ⇒ FALLA (es un DEFECTO, no una entrega).
+
+          Responde SOLO con un objeto JSON (sin texto fuera del objeto):
+          {
+            "reason": "lista de placeholders NO declarados con ubicación/cita (o 'ninguno') || nota de los que SÍ están declarados (OK)",
+            "score": <0.0–1.0: 1.0 = limpio; baja ~0.2 por cada placeholder no declarado>,
+            "pass": <true si cero no-declarados; false si hay alguno>
+          }
