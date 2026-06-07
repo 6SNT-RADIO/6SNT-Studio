@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 // studio-init.mjs — Activa el estudio de agentes CA6SNT en un proyecto nuevo (v4.3).
 //
-// Modelo: la LIBRERÍA del estudio (agentes, hooks, skills, scripts) vive global en ~/.claude;
-// la ACTIVACIÓN es DELIBERADA por-proyecto (copiar settings.json + CLAUDE.md), para no contaminar
-// otras sesiones de Claude Code con agent-teams/telemetría/guards.
+// Modelo: la LIBRERÍA del estudio (agentes, hooks, skills, scripts) vive global en ~/.claude o, como
+// plugin, bajo ${CLAUDE_PLUGIN_ROOT}; la ACTIVACIÓN es DELIBERADA por-proyecto (copiar settings.json +
+// CLAUDE.md), para no contaminar otras sesiones de Claude Code con agent-teams/telemetría/guards.
 //
 // Este script:
-//   1) copia la plantilla right-sized   ~/.claude/templates/studio-project/{settings.json,CLAUDE.md}
+//   1) copia la plantilla right-sized   <studio>/templates/studio-project/{settings.json,CLAUDE.md}
 //      a   <proyecto>/.claude/settings.json   y   <proyecto>/CLAUDE.md
 //      + siembra las rúbricas de evals (pre-gate LLM-juez)  ->  <proyecto>/evals/*.rubric.yaml
 //   2) VERIFICA la activación e imprime OK/FALTA por ítem:
@@ -16,13 +16,22 @@
 //        - rúbricas de evals sembradas + grader keyless claude-cli.js en disco
 //   Idempotente: NO pisa un settings.json / CLAUDE.md existente sin --force (avisa y verifica igual).
 //
-// Uso:  node ~/.claude/scripts/studio-init.mjs <ruta-proyecto> [--force]
+// Uso:  node <studio>/scripts/studio-init.mjs <ruta-proyecto> [--force]
+//   <studio> = ${CLAUDE_PLUGIN_ROOT} (plugin) o ~/.claude (instalación clásica).
 import { existsSync, mkdirSync, copyFileSync, readFileSync, readdirSync } from 'node:fs';
 import { join, resolve, dirname, parse } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import os from 'node:os';
 
 const HOME = os.homedir();
-const TPL = join(HOME, '.claude', 'templates', 'studio-project');
+// Plantilla: en instalación de plugin vive junto al script (CLAUDE_PLUGIN_ROOT o relativo a este
+// archivo); en instalación clásica, en ~/.claude/templates. Se usa la primera ruta que exista.
+const SELF_DIR = dirname(fileURLToPath(import.meta.url));
+const TPL = [
+  process.env.CLAUDE_PLUGIN_ROOT && join(process.env.CLAUDE_PLUGIN_ROOT, 'templates', 'studio-project'),
+  join(SELF_DIR, '..', 'templates', 'studio-project'),
+  join(HOME, '.claude', 'templates', 'studio-project'),
+].filter(Boolean).find((p) => existsSync(p)) || join(HOME, '.claude', 'templates', 'studio-project');
 const argv = process.argv.slice(2);
 const force = argv.includes('--force');
 const target = argv.find((a) => !a.startsWith('--'));
